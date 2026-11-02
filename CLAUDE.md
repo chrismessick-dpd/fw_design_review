@@ -7,9 +7,11 @@ commit messages naming clients.
 
 ## Status
 
-- Local git repo only (`main`, nothing committed). There's no GitHub repo, data repo or Pages
-  site yet. Ask Chris before creating them.
-- The hub, EE, ME and PL don't link to it yet. See *Suite follow-ups* in `docs/audit.md`.
+- Repos `fw_design_review` (public) and `fw_design_review_data` (private) were created on
+  2026-11-02. Chris turns on Pages.
+- Linked from the hub, the EE, ME and PL sidebars, and `repos.suite` in EE and ME. Signoff PL lists
+  it in `tools`, and PL's demo links its firmware Part to `fdemo3`, so **changing this demo means
+  regenerating PL's snapshot** (`../signoff_pl/tools/demo_designs.html`) and stamping PL.
 
 ## Rules
 

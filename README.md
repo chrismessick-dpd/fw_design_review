@@ -1,7 +1,8 @@
 # Signoff FW — firmware design review
 
-**Status:** prototype (2026-11-02). Not on GitHub or Pages yet. Once it is, it will be at
-https://chrismessick-dpd.github.io/fw_design_review/.
+**Status:** prototype (2026-11-02).
+
+**Live:** https://chrismessick-dpd.github.io/fw_design_review/
 
 Signoff FW is Dovetail's checklist tool for firmware design reviews. It covers requirements and
 architecture, the hardware interface, startup, memory and faults, concurrency, power, communications,
@@ -24,7 +25,8 @@ contractor zips all work as they do in those tools; Signoff ME's README covers t
   medical, volume production). Checks that don't fit are set aside as N/A, and you can still
   bring any of them back.
 - **Demo mode:** `index.html?demo` shows the Smart Thermostat's firmware (`fdemo3`), the same
-  made-up product as the other tools' demos.
+  made-up product as the other tools' demos. Signoff PL's demo links its firmware Part here, and
+  its OTA and ESD System requirements flow down to this demo's REQ-001 and REQ-002.
 - **Audit:** [docs/audit.md](docs/audit.md) explains how the first checklists were chosen and
   lists the firmware-specific features and suite work still to do.
 

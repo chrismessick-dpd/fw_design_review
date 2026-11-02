@@ -96,23 +96,22 @@ checker, like Fabcheck is for EE.
 7. **Release gate.** A per-release view (version, the checks done, open issues, the SBOM, the
    archived ELF) for PL's Phase 3 gates.
 
-## Suite follow-ups (not done, on purpose)
+## Suite follow-ups
 
-None of these were changed in this pass. Each is in a different repo, and some need Chris.
+Done on 2026-11-02:
+- [x] Repos `fw_design_review` (public) and `fw_design_review_data` (private) created.
+- [x] The hub has a Signoff FW tile, panel, About section and sidebar link.
+- [x] EE, ME and PL sidebars link to Signoff FW. EE's and ME's `repos.suite` include the FW
+      repos, so Add FTE invites people to them.
+- [x] Signoff PL lists FW in `tools`. Its demo's firmware Part links to `fw:fdemo3`, and the OTA
+      and ESD System requirements flow down to FW's REQ-001 and REQ-002 (the PL-held firmware
+      requirements are gone). PL's snapshot includes the FW demo.
+- [x] The root `CLAUDE.md` lists FW as a `sync_engine.py` copy.
 
-- [ ] Create the `fw_design_review` (public) and `fw_design_review_data` (private) repos, then
-      turn on Pages. Chris turns Pages on himself.
-- [ ] The hub (`signoff`): add a Signoff FW card.
-- [ ] EE and ME `index.html`: add a Signoff FW sidebar link.
-- [ ] EE and ME `config.js` `repos.suite`: add `fw_design_review` and `fw_design_review_data`,
-      so Add FTE invites people to them.
-- [ ] Signoff PL `config.js` `tools`: add an `fw` entry (`review-fw-` prefix, `fw_design_review_data`,
-      `../fw_design_review/index.html`).
-  - Its demo's "Thermostat firmware" Part could then link to `fw:fdemo3`.
-  - Its `fw-ota` and `fw-esd` requirements would then flow down to FW's REQ-001 and REQ-002.
-  - PL's snapshot (`demo-designs.js`) would need regenerating to include the FW demo.
-- [ ] The root `CLAUDE.md` engine table: add `fw_design_review` as a `sync_engine.py` copy, so
-      engine changes get synced and tested in FW as well.
+Still open:
+- [ ] Turn on GitHub Pages for `fw_design_review` (Chris; the token can't).
+- [ ] Fabcheck and Partcheck don't link to FW. They link only to the review tool they feed (EE,
+      ME), which still seems right.
 - [ ] The engine's comments say "EE and ME". Update them to include FW the next time the engine
       changes for other reasons.
 - [ ] Write `docs/guide.md` (the user guide) once the checks are reviewed.
