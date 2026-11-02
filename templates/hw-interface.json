@@ -1,0 +1,321 @@
+{
+  "id": "hw-interface",
+  "title": "Hardware Interface",
+  "short": "HW interface",
+  "version": 1,
+  "description": "Review of the firmware's view of the hardware: pin and peripheral configuration against the schematic, clocks, drivers, errata, sensing, outputs and display.",
+  "sections": [
+    {
+      "id": "hsi-pin",
+      "title": "Pins & Peripherals",
+      "tags": [],
+      "items": [
+        {
+          "id": "hsi-pin-1",
+          "text": "Pin assignments and alternate functions match the current schematic revision",
+          "hint": "Compare the pinmux (or the config tool's file) with the schematic net names, pin by pin. Revisions drift.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "hsi-pin-2",
+          "text": "Unused pins are set to a defined state",
+          "hint": "Analog or output-low per the datasheet's advice. Floating inputs draw current and pick up noise.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-pin-3",
+          "text": "Outputs that drive actuators are safe from reset until firmware sets them",
+          "hint": "Check the pin's reset state and any external pull. A relay or heater must not pulse during boot.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "hsi-pin-4",
+          "text": "Pull-ups, pull-downs and drive strength match what the circuit expects",
+          "hint": "Internal pulls duplicated or missing against the schematic; drive strength too high for EMI.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-pin-5",
+          "text": "Peripheral instances and DMA channels are allocated without conflicts",
+          "hint": "Keep a table of which peripheral, DMA stream and interrupt each driver owns.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-pin-6",
+          "text": "The pin and peripheral table is generated or checked by a tool, not copied by hand",
+          "hint": "E.g. the vendor's config tool output, or a script that cross-checks the netlist.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "hsi-clk",
+      "title": "Clocks & Timing",
+      "tags": [],
+      "items": [
+        {
+          "id": "hsi-clk-1",
+          "text": "The clock tree is configured as designed, and the derived frequencies are verified",
+          "hint": "Measure the system clock on an MCO pin or by timing a known loop on real hardware.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-clk-2",
+          "text": "Peripheral clocks give baud rates and sample rates within tolerance",
+          "hint": "UART baud error under about 2%. Check every rate at every system clock setting used.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-clk-3",
+          "text": "Crystal or oscillator startup failure is detected and handled",
+          "hint": "Use the clock security system or a startup timeout, and fall back to the internal oscillator.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-clk-4",
+          "text": "Timer resolution and wrap-around are handled for every timebase",
+          "hint": "A 32-bit millisecond tick wraps after 49.7 days. Compare with subtraction, not absolute values.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "hsi-clk-5",
+          "text": "RTC accuracy and drift correction meet the timekeeping requirement",
+          "hint": "Calibrate the 32.768 kHz crystal or resync from the network.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "hsi-drv",
+      "title": "Drivers & Errata",
+      "tags": [],
+      "items": [
+        {
+          "id": "hsi-drv-1",
+          "text": "The silicon errata for the exact part and revision are reviewed, and workarounds are in place",
+          "hint": "Note the die revision on the prototype boards. Errata differ between revisions.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "hsi-drv-2",
+          "text": "Every driver checks return codes and has timeouts on hardware waits",
+          "hint": "No unbounded while (!flag) loops. A stuck I2C bus must not hang the system.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-drv-3",
+          "text": "I2C bus recovery is implemented for a slave holding SDA low",
+          "hint": "Clock out nine pulses and send a STOP, then reinitialize the peripheral.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-drv-4",
+          "text": "Cache, DMA and memory barriers are handled where the core has caches",
+          "hint": "Clean or invalidate around DMA buffers, or place them in non-cacheable memory.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-drv-5",
+          "text": "External devices are initialized in the order their datasheets require",
+          "hint": "Power sequencing, reset-release delays and the first register writes.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "hsi-drv-6",
+          "text": "Device IDs or WHO_AM_I registers are read at startup to detect missing or wrong parts",
+          "hint": "Makes second-source parts and assembly errors visible in production test.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "hsi-adc",
+      "title": "Sensing & Signal Processing",
+      "tags": [
+        "sensing"
+      ],
+      "items": [
+        {
+          "id": "hsi-adc-1",
+          "text": "ADC sampling time and reference suit each source impedance",
+          "hint": "High-impedance sources need longer sample times or a buffer.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-adc-2",
+          "text": "Filtering and averaging are designed for the noise and the response time required",
+          "hint": "Document the filter's cutoff or time constant and its effect on latency.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-adc-3",
+          "text": "Calibration constants are stored, versioned and range-checked on load",
+          "hint": "A blank or corrupt calibration must be detected and flagged, not used.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-adc-4",
+          "text": "Open, short and out-of-range sensor readings are detected",
+          "hint": "Report a sensor fault instead of acting on an impossible value.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-adc-5",
+          "text": "Fixed-point scaling and overflow are analyzed, or floating point is used deliberately",
+          "hint": "Check the worst-case intermediate values. Note whether the FPU is used in interrupts.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "hsi-adc-6",
+          "text": "Self-heating and nearby heat sources are compensated where they affect a measurement",
+          "hint": "E.g. a temperature sensor near the MCU or the display backlight.",
+          "tags": [
+            "sensing"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "hsi-act",
+      "title": "Outputs & Actuators",
+      "tags": [
+        "actuators",
+        "motor-control"
+      ],
+      "items": [
+        {
+          "id": "hsi-act-1",
+          "text": "Outputs go to a safe state on any fault, reset or watchdog timeout",
+          "hint": "Define the safe state per output. Verify it by forcing each fault on the bench.",
+          "tags": [
+            "actuators"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "hsi-act-2",
+          "text": "Minimum on and off times, interlocks and rate limits protect the load",
+          "hint": "E.g. compressor short-cycle protection, H-bridge dead time, relay contact wear.",
+          "tags": [
+            "actuators"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-act-3",
+          "text": "Output state is read back or confirmed where the hardware allows",
+          "hint": "Detect a welded relay or an open load.",
+          "tags": [
+            "actuators"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-act-4",
+          "text": "Control loops are tuned, with gains and limits documented",
+          "hint": "Anti-windup, output clamps, and behavior when the feedback sensor fails.",
+          "tags": [
+            "motor-control"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-act-5",
+          "text": "Overcurrent and stall protection respond within the hardware's limits",
+          "hint": "Firmware protection needs a known worst-case response time, or hardware protection behind it.",
+          "tags": [
+            "motor-control"
+          ],
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "hsi-ui",
+      "title": "Display & Touch",
+      "tags": [
+        "display-ui"
+      ],
+      "items": [
+        {
+          "id": "hsi-ui-1",
+          "text": "Display initialization follows the panel's power and reset sequence",
+          "hint": "VDDIO, VDD, reset release, init commands, then the backlight.",
+          "tags": [
+            "display-ui"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "hsi-ui-2",
+          "text": "Touch input is debounced and filtered against false presses",
+          "hint": "Includes water, ESD and a hand resting on the panel.",
+          "tags": [
+            "display-ui"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-ui-3",
+          "text": "The touch controller and display recover after ESD or a glitch without a full reset",
+          "hint": "Detect a stuck controller (no interrupts, bad ID) and reinitialize it.",
+          "tags": [
+            "display-ui"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "hsi-ui-4",
+          "text": "Frame buffer and graphics memory fit the RAM budget, including fonts and images",
+          "hint": "Count partial-refresh buffers and double buffering.",
+          "tags": [
+            "display-ui"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "hsi-ui-5",
+          "text": "Text, units and formats can be localized if the product needs it",
+          "hint": "Units (°C or °F), date and time formats, character sets.",
+          "tags": [
+            "display-ui"
+          ],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "id": "boot-memory",
+  "title": "Startup, Memory & Faults",
+  "short": "Memory & faults",
+  "version": 1,
+  "description": "Review of startup, the memory map and linker script, stack and heap use, non-volatile storage, fault handling and the watchdog.",
+  "sections": [
+    {
+      "id": "mem-boot",
+      "title": "Startup",
+      "tags": [],
+      "items": [
+        {
+          "id": "mem-boot-1",
+          "text": "Startup code initializes .data and .bss, clocks and the FPU before main",
+          "hint": "Review vendor startup files rather than trusting them. Check the vector table location.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-boot-2",
+          "text": "The reset cause is read, logged and cleared at every boot",
+          "hint": "Power-on, brownout, watchdog, software or pin reset. It's the first clue to field failures.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-boot-3",
+          "text": "Boot time to a working product is measured and meets the requirement",
+          "hint": "Measure from power applied to outputs ready and the UI responsive.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "mem-boot-4",
+          "text": "Option bytes or fuses are documented and set by the production process",
+          "hint": "Brownout level, boot pins, watchdog hardware start, read protection.",
+          "tags": [],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "mem-map",
+      "title": "Memory & Linker",
+      "tags": [],
+      "items": [
+        {
+          "id": "mem-map-1",
+          "text": "The linker script matches the part's memory map and the flash partition plan",
+          "hint": "Bootloader, application slots, configuration and storage regions don't overlap.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-map-2",
+          "text": "The map file is reviewed for size against the budget at each release",
+          "hint": "Track flash and RAM use per build so growth is noticed early.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-map-3",
+          "text": "Stack sizes are measured at worst case, with margin",
+          "hint": "Stack painting or static analysis per task and for interrupts. Keep at least 25% margin.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "mem-map-4",
+          "text": "Stack overflow is detected (MPU guard, canary or RTOS check)",
+          "hint": "An overflow that silently corrupts RAM is the hardest bug to find in the field.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-map-5",
+          "text": "Dynamic allocation is avoided after startup, or fragmentation is bounded",
+          "hint": "Prefer static or pool allocation. If malloc is used, measure the high-water mark under long runs.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-map-6",
+          "text": "Variables shared with DMA or the bootloader are placed in named sections",
+          "hint": "So their addresses don't move when unrelated code changes.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "mem-nv",
+      "title": "Non-Volatile Storage",
+      "tags": [],
+      "items": [
+        {
+          "id": "mem-nv-1",
+          "text": "Stored data has a version, a length and a CRC",
+          "hint": "So the firmware can tell blank, corrupt and old-format data apart.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-nv-2",
+          "text": "Writes survive power loss at any point without corrupting stored data",
+          "hint": "Double-buffered records or a journaling file system. Test by cutting power during writes.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "mem-nv-3",
+          "text": "Flash or EEPROM wear is estimated over the product's life and within endurance",
+          "hint": "Writes per day × years ÷ wear-leveling factor against the rated cycles.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-nv-4",
+          "text": "Defaults are restored cleanly on a first boot or a factory reset",
+          "hint": "Including what a factory reset must keep (calibration, serial number, keys).",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "mem-nv-5",
+          "text": "The file system or log handles a full or failed storage device",
+          "hint": "Logs roll over. Writes report errors instead of hanging.",
+          "tags": [
+            "storage"
+          ],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "mem-fault",
+      "title": "Faults & Watchdog",
+      "tags": [],
+      "items": [
+        {
+          "id": "mem-fault-1",
+          "text": "A watchdog is enabled in release builds and can't be starved by a single stuck task",
+          "hint": "Feed it only when every monitored task has checked in, not from a timer interrupt.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "mem-fault-2",
+          "text": "Fault handlers (HardFault, bus or memory faults) capture state for later diagnosis",
+          "hint": "Save the PC, LR and fault registers to retained RAM or flash, then reset.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-fault-3",
+          "text": "Asserts are defined for release builds (log and reset), not compiled out silently",
+          "hint": "Decide deliberately what an assert does in the field.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-fault-4",
+          "text": "The firmware detects and limits reset loops",
+          "hint": "After N quick resets, fall back to a safe mode or the last good image.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "mem-fault-5",
+          "text": "Brownout detection is set at a level where the flash and the MCU still work",
+          "hint": "Pick the BOR level from the datasheet's flash-write minimum voltage.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "mem-fault-6",
+          "text": "The MPU protects code, stacks and peripherals where the core has one",
+          "hint": "At least a guard region below each stack and no-execute on RAM.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

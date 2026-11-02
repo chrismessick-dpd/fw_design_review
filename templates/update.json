@@ -1,0 +1,140 @@
+{
+  "id": "update",
+  "title": "Bootloader & Updates",
+  "short": "Updates",
+  "version": 1,
+  "description": "Review of the bootloader, the update process over the air or in the field, failure recovery and data migration between versions.",
+  "sections": [
+    {
+      "id": "ota-bl",
+      "title": "Bootloader",
+      "tags": [],
+      "items": [
+        {
+          "id": "ota-bl-1",
+          "text": "The bootloader is as small and simple as possible, and is never updated in the field (or safely if it is)",
+          "hint": "A bootloader bug in the field can brick every device. Treat any bootloader update as a last resort.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "ota-bl-2",
+          "text": "The bootloader validates the application image (CRC or signature) before jumping to it",
+          "hint": "And knows what to do when no valid image exists.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "ota-bl-3",
+          "text": "The handoff to the application resets peripherals, interrupts and the stack pointer",
+          "hint": "Leftover bootloader state is a classic source of rare startup bugs.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "ota-bl-4",
+          "text": "A recovery path exists for a device with no valid image (USB, UART, test pads)",
+          "hint": "Document it for the service team.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "ota-upd",
+      "title": "Update Process",
+      "tags": [
+        "ota"
+      ],
+      "items": [
+        {
+          "id": "ota-upd-1",
+          "text": "A failed or interrupted update leaves the device running the previous image",
+          "hint": "A/B slots or a protected recovery image. Test power loss at every stage of the update.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "ota-upd-2",
+          "text": "A new image must confirm it works before it's made permanent, or it rolls back",
+          "hint": "Self-test after boot, then confirm. A watchdog reset before confirmation reverts.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "ota-upd-3",
+          "text": "Images are authenticated (signed) and integrity-checked before install",
+          "hint": "Check the signature before writing to the boot slot, not after.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "ota-upd-4",
+          "text": "Updates are compatible with the hardware revision and the current version",
+          "hint": "The image header names the hardware it's for. Refuse a mismatch.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "ota-upd-5",
+          "text": "Staged rollout and a way to stop a bad release are planned",
+          "hint": "E.g. 1%, 10%, then everyone, with a halt if crash or rollback rates go up.",
+          "tags": [
+            "ota",
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "ota-upd-6",
+          "text": "Download resumes after a dropped connection",
+          "hint": "Large images over weak Wi-Fi rarely finish in one go.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "ota-upd-7",
+          "text": "Updates don't interrupt critical operation",
+          "hint": "Schedule or defer the reboot. E.g. not mid-cycle on an HVAC call.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "ota-mig",
+      "title": "Data Migration",
+      "tags": [],
+      "items": [
+        {
+          "id": "ota-mig-1",
+          "text": "Stored settings migrate forward across every version that can update to this one",
+          "hint": "Test from each released version, not only the last one.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "ota-mig-2",
+          "text": "A rollback to the previous image can still read the data the new image wrote",
+          "hint": "Or the migration happens only after the new image is confirmed.",
+          "tags": [
+            "ota"
+          ],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

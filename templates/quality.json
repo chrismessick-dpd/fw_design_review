@@ -1,0 +1,103 @@
+{
+  "id": "quality",
+  "title": "Code Quality",
+  "short": "Code quality",
+  "version": 1,
+  "description": "Review of the coding standard, compiler warnings, static analysis, code review practice and maintainability.",
+  "sections": [
+    {
+      "id": "cq-std",
+      "title": "Standards & Static Analysis",
+      "tags": [],
+      "items": [
+        {
+          "id": "cq-std-1",
+          "text": "A coding standard is chosen and enforced (e.g. MISRA C, CERT C, Barr Group)",
+          "hint": "Record deviations with a reason, rather than switching rules off globally.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "cq-std-2",
+          "text": "The build is warning-free with a strict warning set, and warnings fail CI",
+          "hint": "E.g. -Wall -Wextra -Werror with -Wconversion where practical.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "cq-std-3",
+          "text": "Static analysis runs in CI, and findings are triaged",
+          "hint": "cppcheck, clang-tidy or a commercial tool. Keep a reviewed baseline so new findings stand out.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "cq-std-4",
+          "text": "Formatting is automated (e.g. clang-format)",
+          "hint": "So code review is about behavior, not whitespace.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "cq-std-5",
+          "text": "MISRA compliance is reported with a deviation record where the client or standard asks for it",
+          "hint": "Usually required for safety and automotive work.",
+          "tags": [
+            "safety",
+            "medical"
+          ],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "cq-rev",
+      "title": "Code Review & Structure",
+      "tags": [],
+      "items": [
+        {
+          "id": "cq-rev-1",
+          "text": "Every change to the main branch is reviewed by a second engineer",
+          "hint": "Use pull requests with required review.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "cq-rev-2",
+          "text": "Functions are small and their complexity is measured",
+          "hint": "Flag cyclomatic complexity above about 15 for review.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "cq-rev-3",
+          "text": "Magic numbers are named, and units are clear in names or types",
+          "hint": "timeout_ms, temp_c_x10. Unit mix-ups cause real bugs.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "cq-rev-4",
+          "text": "Comments explain why, and public interfaces are documented",
+          "hint": "Header comments on each module's API, generated docs if useful.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "cq-rev-5",
+          "text": "Dead code and commented-out code are removed",
+          "hint": "Version control keeps the history.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "cq-rev-6",
+          "text": "Integer overflow, sign conversion and undefined behavior are reviewed in arithmetic",
+          "hint": "Especially in time calculations, scaling and buffer index math.",
+          "tags": [],
+          "severity": "major"
+        }
+      ]
+    }
+  ]
+}

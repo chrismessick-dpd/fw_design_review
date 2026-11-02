@@ -1,0 +1,159 @@
+{
+  "id": "concurrency",
+  "title": "RTOS, Interrupts & Concurrency",
+  "short": "Concurrency",
+  "version": 1,
+  "description": "Review of interrupt handling, tasks and scheduling, shared data, timing analysis and the RTOS configuration.",
+  "sections": [
+    {
+      "id": "rtos-isr",
+      "title": "Interrupts",
+      "tags": [],
+      "items": [
+        {
+          "id": "rtos-isr-1",
+          "text": "Interrupt priorities are assigned deliberately and documented",
+          "hint": "Including which priorities may call RTOS functions (e.g. configMAX_SYSCALL_INTERRUPT_PRIORITY).",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-isr-2",
+          "text": "Interrupt handlers are short, and defer work to tasks or the main loop",
+          "hint": "Measure the worst-case ISR time. Long ISRs delay everything below them.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-isr-3",
+          "text": "Interrupts are cleared correctly, with no lost or repeated events",
+          "hint": "Clear before return and allow for the write-buffer delay on Cortex-M parts.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-isr-4",
+          "text": "Critical sections that disable interrupts are short and measured",
+          "hint": "Worst-case interrupt latency is the longest critical section plus the higher-priority ISRs.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "rtos-isr-5",
+          "text": "Unused interrupt vectors go to a handler that logs and resets",
+          "hint": "Not an empty infinite loop that looks like a hang.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "rtos-task",
+      "title": "Tasks & Scheduling",
+      "tags": [
+        "rtos",
+        "bare-metal"
+      ],
+      "items": [
+        {
+          "id": "rtos-task-1",
+          "text": "Each task's purpose, priority, period and stack size are listed in one place",
+          "hint": "A table in the architecture doc, kept in sync with the code.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-task-2",
+          "text": "Worst-case response times meet the timing requirements",
+          "hint": "Measure with a trace tool (e.g. SystemView, Tracealyzer) under full load.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-task-3",
+          "text": "Blocking calls have timeouts, and the timeout case is handled",
+          "hint": "portMAX_DELAY should be rare and justified.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-task-4",
+          "text": "CPU load is measured, with margin at peak",
+          "hint": "Idle-task time under the worst realistic load. Keep headroom for future features.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "rtos-task-5",
+          "text": "RTOS configuration options are reviewed (tick rate, assert, stack checking, run-time stats)",
+          "hint": "Turn on configASSERT and stack checking in all builds that are tested.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "rtos-task-6",
+          "text": "The main loop's worst-case cycle time meets every deadline it serves",
+          "hint": "In a superloop, one slow function delays everything. Measure the longest pass.",
+          "tags": [
+            "bare-metal"
+          ],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "rtos-sync",
+      "title": "Shared Data",
+      "tags": [],
+      "items": [
+        {
+          "id": "rtos-sync-1",
+          "text": "Data shared between tasks or with ISRs is protected or provably atomic",
+          "hint": "Mutex, critical section, queue, or a single-writer design. volatile alone doesn't make access atomic.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "rtos-sync-2",
+          "text": "Lock ordering is defined, so there are no deadlocks",
+          "hint": "Document the order. Never take a mutex inside an ISR.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-sync-3",
+          "text": "Priority inversion is prevented where a low-priority task holds a shared resource",
+          "hint": "Use mutexes with priority inheritance, not binary semaphores.",
+          "tags": [
+            "rtos"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-sync-4",
+          "text": "Queue and buffer depths are sized for bursts, and overflow is detected and counted",
+          "hint": "A full queue drops data silently unless the code checks the return value.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "rtos-sync-5",
+          "text": "Non-reentrant library calls are not used from several contexts",
+          "hint": "E.g. strtok, some printf implementations, and newlib's malloc without locks.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

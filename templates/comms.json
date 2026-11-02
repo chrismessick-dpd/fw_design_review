@@ -1,0 +1,202 @@
+{
+  "id": "comms",
+  "title": "Communications",
+  "short": "Comms",
+  "version": 1,
+  "description": "Review of wired interfaces, wireless links, cloud connectivity and USB: protocols, timeouts, robustness and certification settings.",
+  "sections": [
+    {
+      "id": "com-wire",
+      "title": "Wired Interfaces",
+      "tags": [],
+      "items": [
+        {
+          "id": "com-wire-1",
+          "text": "Every protocol and message format is documented and versioned",
+          "hint": "Including byte order, framing, checksums and the meaning of every field.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "com-wire-2",
+          "text": "Receivers handle malformed, truncated and out-of-order messages",
+          "hint": "Validate length and checksum before parsing. Fuzz the parser.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "com-wire-3",
+          "text": "Timeouts and retries are defined for every request and response",
+          "hint": "With a backoff, and a defined outcome when retries run out.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "com-wire-4",
+          "text": "Debug and service ports are disabled or protected in production builds",
+          "hint": "A console that accepts commands is an attack surface.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "com-wire-5",
+          "text": "Link errors are counted and visible in diagnostics",
+          "hint": "CRC errors, framing errors and timeouts per interface.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "com-rf",
+      "title": "Wireless",
+      "tags": [
+        "wireless"
+      ],
+      "items": [
+        {
+          "id": "com-rf-1",
+          "text": "Regional radio settings (channels, power, duty cycle) match the certifications",
+          "hint": "Firmware must not be able to exceed the certified configuration.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "com-rf-2",
+          "text": "Test modes for radio certification are available, and locked out of production use",
+          "hint": "Labs need continuous TX and fixed-channel modes. Document how to enter them.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-rf-3",
+          "text": "Connection loss and reconnection are handled with backoff",
+          "hint": "Thousands of devices reconnecting at once can overload the network or the backend.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-rf-4",
+          "text": "The device works, or degrades gracefully, without connectivity",
+          "hint": "Local control keeps working when Wi-Fi or the cloud is down.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-rf-5",
+          "text": "Provisioning (joining a network) is tested with real phones and access points",
+          "hint": "Include mixed-band networks, hidden SSIDs, captive portals and wrong passwords.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "com-rf-6",
+          "text": "Coexistence between radios on the same device is managed",
+          "hint": "E.g. Wi-Fi and BLE sharing a 2.4 GHz front end.",
+          "tags": [
+            "wireless"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "com-cloud",
+      "title": "Cloud & Protocols",
+      "tags": [
+        "cloud"
+      ],
+      "items": [
+        {
+          "id": "com-cloud-1",
+          "text": "TLS is used with certificate validation, and a way to rotate root certificates",
+          "hint": "Pin to a set of roots that can be updated by OTA, not a single leaf certificate.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "com-cloud-2",
+          "text": "The device-to-cloud API is versioned, so old firmware keeps working after backend changes",
+          "hint": "Old firmware will be in the field for years.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-cloud-3",
+          "text": "Messages are queued or dropped by a defined policy while offline",
+          "hint": "Bounded queue, with oldest-first or priority dropping.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-cloud-4",
+          "text": "Time is synchronized securely before it's used for certificates or schedules",
+          "hint": "A device with no RTC battery boots in 1970, and certificate checks fail.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "com-cloud-5",
+          "text": "Telemetry volume and data costs are estimated per device per month",
+          "hint": "Matters for cellular and for backend sizing.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "com-usb",
+      "title": "USB",
+      "tags": [
+        "usb"
+      ],
+      "items": [
+        {
+          "id": "com-usb-1",
+          "text": "USB descriptors use the client's own VID/PID, not the vendor's example IDs",
+          "hint": "Example IDs collide with other products and aren't licensed for shipping.",
+          "tags": [
+            "usb"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-usb-2",
+          "text": "Enumeration works on Windows, macOS and Linux hosts, and through hubs",
+          "tags": [
+            "usb"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "com-usb-3",
+          "text": "Suspend, resume and cable unplug during transfers are handled",
+          "tags": [
+            "usb"
+          ],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

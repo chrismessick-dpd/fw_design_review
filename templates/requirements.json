@@ -1,0 +1,216 @@
+{
+  "id": "requirements",
+  "title": "Requirements & Architecture",
+  "short": "Architecture",
+  "version": 1,
+  "description": "Review of firmware requirements, architecture, resource budgets, third-party code and, where it applies, functional safety.",
+  "sections": [
+    {
+      "id": "req-def",
+      "title": "Firmware Requirements",
+      "tags": [],
+      "items": [
+        {
+          "id": "req-def-1",
+          "text": "Firmware requirements are written down and traced to the product and EE requirements",
+          "hint": "Each firmware requirement should name its parent (a system or EE requirement) so a change upstream shows what it touches.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-def-2",
+          "text": "Every requirement has a verification method (test, analysis, inspection or demonstration)",
+          "hint": "Use the Requirements tab: a requirement with no way to verify it can't be signed off.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-def-3",
+          "text": "Timing requirements are quantified (latency, response time, update rates)",
+          "hint": "\"Fast\" isn't testable. E.g. \"relay off within 100 ms of a fault\" or \"display update within 50 ms of a touch\".",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-def-4",
+          "text": "Behavior on power-up, reset and power loss is specified",
+          "hint": "What state are outputs in during boot? What is restored after a power cut, and what is lost?",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-def-5",
+          "text": "Error and fault behavior is specified, not just the happy path",
+          "hint": "List the faults the firmware must detect (sensor open or short, comms loss, storage full) and what it does for each.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-def-6",
+          "text": "User-visible behavior (UI flows, LEDs, error codes) has a spec the product owner agreed to",
+          "hint": "Error codes and LED patterns end up in manuals and support scripts. Freeze them deliberately.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "req-def-7",
+          "text": "Regulatory and certification requirements that land on firmware are identified",
+          "hint": "E.g. radio duty cycle and region settings, IEC 60730 class B self-tests, EN 18031 / RED cybersecurity, IEC 62304.",
+          "tags": [],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "req-arch",
+      "title": "Architecture",
+      "tags": [],
+      "items": [
+        {
+          "id": "req-arch-1",
+          "text": "An architecture document shows the layers, modules and their dependencies",
+          "hint": "A one-page block diagram is enough: HAL, drivers, middleware, application, and which way calls go.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-arch-2",
+          "text": "The hardware abstraction is separated from application logic",
+          "hint": "Application code that touches registers directly can't be unit tested off target or ported to the next MCU.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-arch-3",
+          "text": "Flash, RAM and CPU budgets exist, with margin for the product's life",
+          "hint": "Plan to ship with at least 25–30% free flash and RAM so field updates have room to grow.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-arch-4",
+          "text": "The execution model is chosen and justified (superloop, RTOS, event-driven)",
+          "hint": "Record why. The choice drives timing analysis, testing and power management.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "req-arch-5",
+          "text": "The partition between processors is defined where there is more than one",
+          "hint": "Who owns which peripheral, how they talk, and how one updates or resets the other.",
+          "tags": [
+            "multi-core"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "req-arch-6",
+          "text": "State machines for the main modes are drawn and match the code",
+          "hint": "Modes such as boot, setup, run, fault and update. Unhandled event/state pairs are a common source of field bugs.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "req-arch-7",
+          "text": "Configuration is separated from code (build variants, region, SKU)",
+          "hint": "Prefer one image with runtime configuration, or a small, named set of build variants.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "req-dep",
+      "title": "Third-Party Code",
+      "tags": [],
+      "items": [
+        {
+          "id": "req-dep-1",
+          "text": "Every third-party component is listed with version, source and license",
+          "hint": "SDKs, RTOS, stacks, libraries, vendor examples. This becomes the SBOM.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-dep-2",
+          "text": "Licenses are compatible with how the product ships",
+          "hint": "GPL and LGPL components have obligations for linked, distributed binaries. Check with the client before shipping them.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "req-dep-3",
+          "text": "Vendor SDK and stack versions are pinned, and the update policy is written down",
+          "hint": "Pin by version or commit. Unpinned SDK updates change behavior between builds.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "req-dep-4",
+          "text": "Local modifications to third-party code are kept as patches",
+          "hint": "So they can be re-applied when the upstream version changes.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "req-saf",
+      "title": "Functional Safety",
+      "tags": [
+        "safety",
+        "medical"
+      ],
+      "items": [
+        {
+          "id": "req-saf-1",
+          "text": "The applicable safety standard and software class are identified",
+          "hint": "E.g. IEC 60730 class B for appliance controls, IEC 61508 SIL, IEC 62304 class A/B/C for medical.",
+          "tags": [
+            "safety",
+            "medical"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "req-saf-2",
+          "text": "A hazard analysis identifies the firmware's contribution to each hazard",
+          "hint": "Each hazard the firmware can cause or must prevent, with the mitigation and how it's verified.",
+          "tags": [
+            "safety",
+            "medical"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "req-saf-3",
+          "text": "Safety functions are isolated from non-safety code",
+          "hint": "Separate tasks or partitions, MPU regions, or a separate processor, so a bug elsewhere can't defeat them.",
+          "tags": [
+            "safety",
+            "medical"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "req-saf-4",
+          "text": "Required self-tests are implemented (CPU, RAM, flash CRC, clock)",
+          "hint": "IEC 60730 class B lists the self-tests by component. Vendor class B libraries cover most of them.",
+          "tags": [
+            "safety"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "req-saf-5",
+          "text": "Software of unknown provenance (SOUP) is listed with its risk assessment",
+          "hint": "IEC 62304 asks for each SOUP item's requirements and known anomalies.",
+          "tags": [
+            "medical"
+          ],
+          "severity": "major"
+        }
+      ]
+    }
+  ]
+}

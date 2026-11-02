@@ -1,0 +1,196 @@
+{
+  "id": "security",
+  "title": "Security",
+  "short": "Security",
+  "version": 1,
+  "description": "Review of secure boot, debug access, keys and credentials, input handling, vulnerability management and privacy.",
+  "sections": [
+    {
+      "id": "sec-boot",
+      "title": "Secure Boot & Debug",
+      "tags": [],
+      "items": [
+        {
+          "id": "sec-boot-1",
+          "text": "Debug ports (SWD/JTAG) are locked or disabled on production units",
+          "hint": "Set read-out protection or debug authentication as a production step, and verify it at end of line.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "sec-boot-2",
+          "text": "Only signed firmware can boot, or the decision not to is documented",
+          "hint": "Secure boot with a root of trust in ROM or locked flash.",
+          "tags": [
+            "security-sensitive",
+            "ota"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-boot-3",
+          "text": "Anti-rollback prevents installing an older, vulnerable image",
+          "hint": "A monotonic security version in OTP or protected storage.",
+          "tags": [
+            "security-sensitive"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-boot-4",
+          "text": "Bootloader and option-byte protection can't be undone without erasing secrets",
+          "hint": "Check what an attacker can do with the regression from RDP level 1 to level 0.",
+          "tags": [
+            "security-sensitive"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "sec-key",
+      "title": "Keys & Credentials",
+      "tags": [],
+      "items": [
+        {
+          "id": "sec-key-1",
+          "text": "No secrets (keys, passwords, API tokens) are in the source code or the image",
+          "hint": "Search the repository history too. Shared secrets across all devices are a single point of failure.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "sec-key-2",
+          "text": "Each device has unique credentials, provisioned in production",
+          "hint": "Per-device certificates or keys, injected in a controlled step and recorded.",
+          "tags": [
+            "cloud",
+            "security-sensitive"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "sec-key-3",
+          "text": "Keys are stored in protected storage (secure element, TrustZone, encrypted flash)",
+          "hint": "Not in plain external flash that can be read with a clip.",
+          "tags": [
+            "security-sensitive",
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-key-4",
+          "text": "User credentials (Wi-Fi passwords, accounts) are encrypted at rest and never logged",
+          "hint": "Check debug logs, crash dumps and support bundles.",
+          "tags": [
+            "wireless",
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-key-5",
+          "text": "There is a plan for revoking and rotating keys",
+          "hint": "What happens when one device's key leaks? When the signing key leaks?",
+          "tags": [
+            "security-sensitive",
+            "cloud"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "sec-in",
+      "title": "Input Handling",
+      "tags": [],
+      "items": [
+        {
+          "id": "sec-in-1",
+          "text": "All external input is validated for length and range before use",
+          "hint": "Network, BLE, USB, serial, files and sensor data. No unchecked memcpy from a packet.",
+          "tags": [],
+          "severity": "critical"
+        },
+        {
+          "id": "sec-in-2",
+          "text": "Banned functions (strcpy, sprintf, gets) are not used, or are flagged by the build",
+          "hint": "Use bounded versions and enforce it with a linter rule.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "sec-in-3",
+          "text": "Parsers for external data are fuzzed",
+          "hint": "Even a short fuzzing run off target finds most buffer bugs in a parser.",
+          "tags": [
+            "security-sensitive",
+            "cloud",
+            "wireless"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-in-4",
+          "text": "Stack protection, and other compiler and linker hardening, are enabled",
+          "hint": "-fstack-protector-strong, and the MPU marking RAM non-executable.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "sec-vul",
+      "title": "Vulnerabilities & Compliance",
+      "tags": [],
+      "items": [
+        {
+          "id": "sec-vul-1",
+          "text": "Third-party components are checked against known vulnerabilities (CVEs)",
+          "hint": "Use the SBOM. Repeat at each release and on a schedule after launch.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "sec-vul-2",
+          "text": "The applicable cybersecurity rules for the target markets are identified",
+          "hint": "E.g. EN 18031 for radio products in the EU (RED), the Cyber Resilience Act, ETSI EN 303 645, the US Cyber Trust Mark.",
+          "tags": [
+            "wireless",
+            "cloud"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "sec-vul-3",
+          "text": "There is a vulnerability disclosure contact and a patch process",
+          "hint": "Required by several of the rules above. Agree who owns it with the client.",
+          "tags": [
+            "wireless",
+            "cloud"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "sec-vul-4",
+          "text": "A threat model lists assets, attackers and mitigations",
+          "hint": "Even a one-page STRIDE table focuses the security review.",
+          "tags": [
+            "security-sensitive"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "sec-vul-5",
+          "text": "Personal data collected by the device is listed, minimized and disclosed",
+          "hint": "Location, schedules, usage patterns. Check the privacy policy matches what the firmware sends.",
+          "tags": [
+            "cloud"
+          ],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

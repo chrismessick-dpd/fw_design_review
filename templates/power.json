@@ -1,0 +1,141 @@
+{
+  "id": "power",
+  "title": "Power Management",
+  "short": "Power",
+  "version": 1,
+  "description": "Review of low-power modes, the energy budget, battery handling and behavior on brownout and power loss.",
+  "sections": [
+    {
+      "id": "pwr-mode",
+      "title": "Low-Power Modes",
+      "tags": [
+        "battery",
+        "low-power"
+      ],
+      "items": [
+        {
+          "id": "pwr-mode-1",
+          "text": "An energy budget exists per mode, and measured current matches it",
+          "hint": "Measure with a power analyzer across a full duty cycle, not just in sleep.",
+          "tags": [
+            "battery",
+            "low-power"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-mode-2",
+          "text": "The system enters its lowest usable sleep mode whenever it's idle",
+          "hint": "E.g. FreeRTOS tickless idle. Check that nothing holds the clocks on.",
+          "tags": [
+            "battery",
+            "low-power"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-mode-3",
+          "text": "Every wake-up source is known, and unexpected wake-ups are counted",
+          "hint": "Spurious wake-ups are a common reason for short battery life.",
+          "tags": [
+            "battery",
+            "low-power"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-mode-4",
+          "text": "Peripherals and external parts are powered down or put to sleep when unused",
+          "hint": "Including sensors, radios and pull-ups on idle buses.",
+          "tags": [
+            "battery",
+            "low-power"
+          ],
+          "severity": "minor"
+        },
+        {
+          "id": "pwr-mode-5",
+          "text": "Debug builds that block sleep are not what's measured or shipped",
+          "hint": "Debug interfaces often keep clocks running.",
+          "tags": [
+            "battery",
+            "low-power"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "pwr-bat",
+      "title": "Battery",
+      "tags": [
+        "battery"
+      ],
+      "items": [
+        {
+          "id": "pwr-bat-1",
+          "text": "State of charge is estimated with a method suited to the chemistry",
+          "hint": "Voltage alone is poor for Li-ion under load. Use a fuel gauge or coulomb counting.",
+          "tags": [
+            "battery"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-bat-2",
+          "text": "Charging respects the cell's temperature and voltage limits",
+          "hint": "Don't charge Li-ion below 0 °C. Firmware-controlled chargers need independent hardware protection.",
+          "tags": [
+            "battery"
+          ],
+          "severity": "critical"
+        },
+        {
+          "id": "pwr-bat-3",
+          "text": "Low-battery behavior is graceful: warn, save state, then shut down",
+          "hint": "Shut down before brownout corrupts storage.",
+          "tags": [
+            "battery"
+          ],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-bat-4",
+          "text": "Shipping or storage mode keeps self-discharge within shelf-life targets",
+          "tags": [
+            "battery"
+          ],
+          "severity": "minor"
+        }
+      ]
+    },
+    {
+      "id": "pwr-loss",
+      "title": "Brownout & Power Loss",
+      "tags": [],
+      "items": [
+        {
+          "id": "pwr-loss-1",
+          "text": "Power loss is detected early enough to finish critical writes",
+          "hint": "Use the PVD or a supply monitor, and know the hold-up time from bulk capacitance.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-loss-2",
+          "text": "The device recovers to a correct state after a power cut at any moment",
+          "hint": "Automate cycles at random points (e.g. 1,000 cuts) and check state and storage each time.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "pwr-loss-3",
+          "text": "Behavior on slow-rising and dipping supplies is tested",
+          "hint": "Slow ramps and short dips can leave the MCU half-reset without a supervisor.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}

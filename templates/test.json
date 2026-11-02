@@ -1,0 +1,133 @@
+{
+  "id": "test",
+  "title": "Testing & Verification",
+  "short": "Testing",
+  "version": 1,
+  "description": "Review of unit and integration tests, hardware-in-the-loop and system testing, robustness and long-run testing, and test reporting.",
+  "sections": [
+    {
+      "id": "tst-unit",
+      "title": "Unit & Integration Tests",
+      "tags": [],
+      "items": [
+        {
+          "id": "tst-unit-1",
+          "text": "Unit tests run off target in CI on every change",
+          "hint": "E.g. Unity, CppUTest or GoogleTest on the host, with the hardware layer mocked.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-unit-2",
+          "text": "Code coverage is measured, and untested critical modules are known",
+          "hint": "Coverage is a guide, not a target. Look at what isn't covered.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "tst-unit-3",
+          "text": "Logic that decides safety or outputs has thorough tests, including boundaries",
+          "hint": "State machines, control logic, schedulers, parsers.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-unit-4",
+          "text": "Structural coverage meets what the safety standard requires",
+          "hint": "Statement, branch or MC/DC coverage depending on class or SIL.",
+          "tags": [
+            "safety",
+            "medical"
+          ],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "tst-sys",
+      "title": "Hardware-in-the-Loop & System Tests",
+      "tags": [],
+      "items": [
+        {
+          "id": "tst-sys-1",
+          "text": "Automated tests run on real hardware for each release candidate",
+          "hint": "A HIL rig, or at least scripted bench tests with a pass or fail result.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-sys-2",
+          "text": "Every requirement has a test, and results are recorded against the build that was tested",
+          "hint": "Use the Requirements tab: link each requirement to its check and record the evidence.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-sys-3",
+          "text": "Tests run on the current hardware revision, and differences from earlier boards are known",
+          "hint": "A test pass on EVT boards may not hold on DVT boards.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-sys-4",
+          "text": "Manual test procedures are written so anyone can repeat them",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "tst-sys-5",
+          "text": "Interoperability is tested with real phones, apps, routers and backends",
+          "hint": "Keep a matrix of tested versions.",
+          "tags": [
+            "wireless",
+            "cloud"
+          ],
+          "severity": "major"
+        }
+      ]
+    },
+    {
+      "id": "tst-rob",
+      "title": "Robustness & Long-Run Tests",
+      "tags": [],
+      "items": [
+        {
+          "id": "tst-rob-1",
+          "text": "Soak tests run for days under realistic load without resets or memory growth",
+          "hint": "Track heap, stack, queues and the reset count over the run.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-rob-2",
+          "text": "Fault injection covers sensor failure, comms loss, storage failure and power loss",
+          "hint": "Each specified fault behavior should have a test that forces it.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-rob-3",
+          "text": "The firmware is tested during EMC and ESD testing, with its behavior recorded",
+          "hint": "Note any reset, lockup or corrupt display, and which recover on their own.",
+          "tags": [],
+          "severity": "major"
+        },
+        {
+          "id": "tst-rob-4",
+          "text": "Behavior is tested at temperature extremes",
+          "hint": "Oscillator startup, flash writes and sensor accuracy change with temperature.",
+          "tags": [],
+          "severity": "minor"
+        },
+        {
+          "id": "tst-rob-5",
+          "text": "Clock and timer wrap-around are tested by starting timers near rollover",
+          "hint": "Rather than waiting 49 days.",
+          "tags": [],
+          "severity": "minor"
+        }
+      ]
+    }
+  ]
+}
