@@ -19,7 +19,7 @@
         },
         {
           "id": "req-def-2",
-          "text": "Every requirement has a verification method (test, analysis, inspection or demonstration)",
+          "text": "Every requirement has a verification method (test, analysis, inspection, or demonstration)",
           "hint": "Use the Requirements tab: a requirement with no way to verify it can't be signed off.",
           "tags": [],
           "severity": "major"
@@ -33,7 +33,7 @@
         },
         {
           "id": "req-def-4",
-          "text": "Behavior on power-up, reset and power loss is specified",
+          "text": "Behavior on power-up, reset, and power loss is specified",
           "hint": "What state are outputs in during boot? What is restored after a power cut, and what is lost?",
           "tags": [],
           "severity": "major"
@@ -68,7 +68,7 @@
       "items": [
         {
           "id": "req-arch-1",
-          "text": "An architecture document shows the layers, modules and their dependencies",
+          "text": "An architecture document shows the layers, modules, and their dependencies",
           "hint": "A one-page block diagram is enough: HAL, drivers, middleware, application, and which way calls go.",
           "tags": [],
           "severity": "major"
@@ -82,7 +82,7 @@
         },
         {
           "id": "req-arch-3",
-          "text": "Flash, RAM and CPU budgets exist, with margin for the product's life",
+          "text": "Flash, RAM, and CPU budgets exist, with margin for the product's life",
           "hint": "Plan to ship with at least 25–30% free flash and RAM so field updates have room to grow.",
           "tags": [],
           "severity": "major"
@@ -90,7 +90,7 @@
         {
           "id": "req-arch-4",
           "text": "The execution model is chosen and justified (superloop, RTOS, event-driven)",
-          "hint": "Record why. The choice drives timing analysis, testing and power management.",
+          "hint": "Record why. The choice drives timing analysis, testing, and power management.",
           "tags": [],
           "severity": "minor"
         },
@@ -106,7 +106,7 @@
         {
           "id": "req-arch-6",
           "text": "State machines for the main modes are drawn and match the code",
-          "hint": "Modes such as boot, setup, run, fault and update. Unhandled event/state pairs are a common source of field bugs.",
+          "hint": "Modes such as boot, setup, run, fault, and update. Unhandled event/state pairs are a common source of field bugs.",
           "tags": [],
           "severity": "minor"
         },
@@ -126,7 +126,7 @@
       "items": [
         {
           "id": "req-dep-1",
-          "text": "Every third-party component is listed with version, source and license",
+          "text": "Every third-party component is listed with version, source, and license",
           "hint": "SDKs, RTOS, stacks, libraries, vendor examples. This becomes the SBOM.",
           "tags": [],
           "severity": "major"

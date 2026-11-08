@@ -3,7 +3,7 @@
   "title": "Security",
   "short": "Security",
   "version": 1,
-  "description": "Review of secure boot, debug access, keys and credentials, input handling, vulnerability management and privacy.",
+  "description": "Review of secure boot, debug access, keys and credentials, input handling, vulnerability management, and privacy.",
   "sections": [
     {
       "id": "sec-boot",
@@ -82,7 +82,7 @@
         {
           "id": "sec-key-4",
           "text": "User credentials (Wi-Fi passwords, accounts) are encrypted at rest and never logged",
-          "hint": "Check debug logs, crash dumps and support bundles.",
+          "hint": "Check debug logs, crash dumps, and support bundles.",
           "tags": [
             "wireless",
             "cloud"
@@ -109,7 +109,7 @@
         {
           "id": "sec-in-1",
           "text": "All external input is validated for length and range before use",
-          "hint": "Network, BLE, USB, serial, files and sensor data. No unchecked memcpy from a packet.",
+          "hint": "Network, BLE, USB, serial, files, and sensor data. No unchecked memcpy from a packet.",
           "tags": [],
           "severity": "critical"
         },
@@ -174,7 +174,7 @@
         },
         {
           "id": "sec-vul-4",
-          "text": "A threat model lists assets, attackers and mitigations",
+          "text": "A threat model lists assets, attackers, and mitigations",
           "hint": "Even a one-page STRIDE table focuses the security review.",
           "tags": [
             "security-sensitive"
@@ -183,7 +183,7 @@
         },
         {
           "id": "sec-vul-5",
-          "text": "Personal data collected by the device is listed, minimized and disclosed",
+          "text": "Personal data collected by the device is listed, minimized, and disclosed",
           "hint": "Location, schedules, usage patterns. Check the privacy policy matches what the firmware sends.",
           "tags": [
             "cloud"

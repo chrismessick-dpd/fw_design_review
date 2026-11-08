@@ -3,7 +3,7 @@
   "title": "Bootloader & Updates",
   "short": "Updates",
   "version": 1,
-  "description": "Review of the bootloader, the update process over the air or in the field, failure recovery and data migration between versions.",
+  "description": "Review of the bootloader, the update process over the air or in the field, failure recovery, and data migration between versions.",
   "sections": [
     {
       "id": "ota-bl",
@@ -26,7 +26,7 @@
         },
         {
           "id": "ota-bl-3",
-          "text": "The handoff to the application resets peripherals, interrupts and the stack pointer",
+          "text": "The handoff to the application resets peripherals, interrupts, and the stack pointer",
           "hint": "Leftover bootloader state is a classic source of rare startup bugs.",
           "tags": [],
           "severity": "minor"

@@ -13,7 +13,7 @@
         {
           "id": "tst-unit-1",
           "text": "Unit tests run off target in CI on every change",
-          "hint": "E.g. Unity, CppUTest or GoogleTest on the host, with the hardware layer mocked.",
+          "hint": "E.g. Unity, CppUTest, or GoogleTest on the host, with the hardware layer mocked.",
           "tags": [],
           "severity": "major"
         },
@@ -34,7 +34,7 @@
         {
           "id": "tst-unit-4",
           "text": "Structural coverage meets what the safety standard requires",
-          "hint": "Statement, branch or MC/DC coverage depending on class or SIL.",
+          "hint": "Statement, branch, or MC/DC coverage depending on class or SIL.",
           "tags": [
             "safety",
             "medical"
@@ -77,7 +77,7 @@
         },
         {
           "id": "tst-sys-5",
-          "text": "Interoperability is tested with real phones, apps, routers and backends",
+          "text": "Interoperability is tested with real phones, apps, routers, and backends",
           "hint": "Keep a matrix of tested versions.",
           "tags": [
             "wireless",
@@ -95,13 +95,13 @@
         {
           "id": "tst-rob-1",
           "text": "Soak tests run for days under realistic load without resets or memory growth",
-          "hint": "Track heap, stack, queues and the reset count over the run.",
+          "hint": "Track heap, stack, queues, and the reset count over the run.",
           "tags": [],
           "severity": "major"
         },
         {
           "id": "tst-rob-2",
-          "text": "Fault injection covers sensor failure, comms loss, storage failure and power loss",
+          "text": "Fault injection covers sensor failure, comms loss, storage failure, and power loss",
           "hint": "Each specified fault behavior should have a test that forces it.",
           "tags": [],
           "severity": "major"
@@ -109,14 +109,14 @@
         {
           "id": "tst-rob-3",
           "text": "The firmware is tested during EMC and ESD testing, with its behavior recorded",
-          "hint": "Note any reset, lockup or corrupt display, and which recover on their own.",
+          "hint": "Note any reset, lockup, or corrupt display, and which recover on their own.",
           "tags": [],
           "severity": "major"
         },
         {
           "id": "tst-rob-4",
           "text": "Behavior is tested at temperature extremes",
-          "hint": "Oscillator startup, flash writes and sensor accuracy change with temperature.",
+          "hint": "Oscillator startup, flash writes, and sensor accuracy change with temperature.",
           "tags": [],
           "severity": "minor"
         },

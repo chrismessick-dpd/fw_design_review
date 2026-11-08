@@ -3,7 +3,7 @@
   "title": "Code Quality",
   "short": "Code quality",
   "version": 1,
-  "description": "Review of the coding standard, compiler warnings, static analysis, code review practice and maintainability.",
+  "description": "Review of the coding standard, compiler warnings, static analysis, code review practice, and maintainability.",
   "sections": [
     {
       "id": "cq-std",
@@ -27,7 +27,7 @@
         {
           "id": "cq-std-3",
           "text": "Static analysis runs in CI, and findings are triaged",
-          "hint": "cppcheck, clang-tidy or a commercial tool. Keep a reviewed baseline so new findings stand out.",
+          "hint": "cppcheck, clang-tidy, or a commercial tool. Keep a reviewed baseline so new findings stand out.",
           "tags": [],
           "severity": "major"
         },
@@ -92,8 +92,8 @@
         },
         {
           "id": "cq-rev-6",
-          "text": "Integer overflow, sign conversion and undefined behavior are reviewed in arithmetic",
-          "hint": "Especially in time calculations, scaling and buffer index math.",
+          "text": "Integer overflow, sign conversion, and undefined behavior are reviewed in arithmetic",
+          "hint": "Especially in time calculations, scaling, and buffer index math.",
           "tags": [],
           "severity": "major"
         }

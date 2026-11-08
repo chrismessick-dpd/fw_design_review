@@ -3,7 +3,7 @@
   "title": "RTOS, Interrupts & Concurrency",
   "short": "Concurrency",
   "version": 1,
-  "description": "Review of interrupt handling, tasks and scheduling, shared data, timing analysis and the RTOS configuration.",
+  "description": "Review of interrupt handling, tasks and scheduling, shared data, timing analysis, and the RTOS configuration.",
   "sections": [
     {
       "id": "rtos-isr",
@@ -57,7 +57,7 @@
       "items": [
         {
           "id": "rtos-task-1",
-          "text": "Each task's purpose, priority, period and stack size are listed in one place",
+          "text": "Each task's purpose, priority, period, and stack size are listed in one place",
           "hint": "A table in the architecture doc, kept in sync with the code.",
           "tags": [
             "rtos"

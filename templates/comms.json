@@ -3,7 +3,7 @@
   "title": "Communications",
   "short": "Comms",
   "version": 1,
-  "description": "Review of wired interfaces, wireless links, cloud connectivity and USB: protocols, timeouts, robustness and certification settings.",
+  "description": "Review of wired interfaces, wireless links, cloud connectivity, and USB: protocols, timeouts, robustness, and certification settings.",
   "sections": [
     {
       "id": "com-wire",
@@ -13,13 +13,13 @@
         {
           "id": "com-wire-1",
           "text": "Every protocol and message format is documented and versioned",
-          "hint": "Including byte order, framing, checksums and the meaning of every field.",
+          "hint": "Including byte order, framing, checksums, and the meaning of every field.",
           "tags": [],
           "severity": "major"
         },
         {
           "id": "com-wire-2",
-          "text": "Receivers handle malformed, truncated and out-of-order messages",
+          "text": "Receivers handle malformed, truncated, and out-of-order messages",
           "hint": "Validate length and checksum before parsing. Fuzz the parser.",
           "tags": [],
           "severity": "major"
@@ -41,7 +41,7 @@
         {
           "id": "com-wire-5",
           "text": "Link errors are counted and visible in diagnostics",
-          "hint": "CRC errors, framing errors and timeouts per interface.",
+          "hint": "CRC errors, framing errors, and timeouts per interface.",
           "tags": [],
           "severity": "minor"
         }
@@ -93,7 +93,7 @@
         {
           "id": "com-rf-5",
           "text": "Provisioning (joining a network) is tested with real phones and access points",
-          "hint": "Include mixed-band networks, hidden SSIDs, captive portals and wrong passwords.",
+          "hint": "Include mixed-band networks, hidden SSIDs, captive portals, and wrong passwords.",
           "tags": [
             "wireless"
           ],
@@ -182,7 +182,7 @@
         },
         {
           "id": "com-usb-2",
-          "text": "Enumeration works on Windows, macOS and Linux hosts, and through hubs",
+          "text": "Enumeration works on Windows, macOS, and Linux hosts, and through hubs",
           "tags": [
             "usb"
           ],
@@ -190,7 +190,7 @@
         },
         {
           "id": "com-usb-3",
-          "text": "Suspend, resume and cable unplug during transfers are handled",
+          "text": "Suspend, resume, and cable unplug during transfers are handled",
           "tags": [
             "usb"
           ],

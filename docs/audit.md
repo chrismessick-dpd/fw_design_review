@@ -7,9 +7,9 @@ firmware work, and the suite changes left for later.
 
 Signoff FW is a third copy of the shared Signoff engine, set up the way Signoff ME is: no
 engine changes, everything firmware-specific in `assets/config.js`, `templates/`,
-`index.html`, the tests and the docs. So it already has everything EE and ME have:
+`index.html`, the tests, and the docs. So it already has everything EE and ME have:
 - checklists with profile tags
-- findings with severity, owner and resolution
+- findings with severity, owner, and resolution
 - comment threads and the requirements tab with traceability
 - the review report and CSV
 - GitHub sync, People & access, contractor zips
@@ -24,7 +24,7 @@ proven and shipped.
 | Checklist | Checks | What it's there for |
 | --- | --- | --- |
 | Requirements & Architecture | 23 | Quantified timing and fault behavior; resource budgets; third-party code and licenses; functional safety (tagged) |
-| Hardware Interface | 33 | The EE/FW seam: pinmux against the schematic, safe output states through reset, clocks, errata, bus recovery; sensing, outputs, display and touch (tagged) |
+| Hardware Interface | 33 | The EE/FW seam: pinmux against the schematic, safe output states through reset, clocks, errata, bus recovery; sensing, outputs, display, and touch (tagged) |
 | Startup, Memory & Faults | 21 | Reset cause, linker and map review, stack measurement and overflow detection, power-safe storage, watchdog design, fault capture, reset-loop limits |
 | RTOS, Interrupts & Concurrency | 16 | ISR priorities and length, worst-case response, shared data, priority inversion, queue overflow |
 | Power Management | 12 | Energy budget, sleep and wake sources, battery charging and shutdown (tagged); power-loss recovery for everyone |
@@ -47,7 +47,7 @@ How the checks were picked:
   of it applies from December 2027. These sit in Security and are
   tagged, so they appear only for connected products.
 - **Usable on any project.** 117 of the 196 checks (60%) are untagged. Safety, medical, battery,
-  motor control and the other domain checks appear only when the profile says so.
+  motor control, and the other domain checks appear only when the profile says so.
 
 Not covered yet, and worth adding once Chris and the FW engineers have used it:
 - embedded Linux (Yocto/Buildroot, kernel config, rootfs updates). There's no `embedded-linux`
@@ -75,13 +75,13 @@ checker, like Fabcheck is for EE.
    - check flash and RAM use against the budget, per section and per module;
    - track growth since the last review;
    - find the largest symbols, and stack use where the compiler's `.su` files are included;
-   - check the image header, version and hash;
+   - check the image header, version, and hash;
    - check the vector table and the linker regions against a partition plan.
 
    Send to Signoff would raise issues on Startup, Memory & Faults, as Fabcheck does on EE's Fab
    checklist. The map file and the ELF need no client cooperation, so this is the most
    achievable checker.
-3. **Static analysis import.** Read SARIF (cppcheck, clang-tidy, GCC's `-fanalyzer` and most
+3. **Static analysis import.** Read SARIF (cppcheck, clang-tidy, GCC's `-fanalyzer`, and most
    commercial tools emit it) and raise grouped issues against Code Quality and Security, with a
    baseline, so only new findings show up.
 4. **SBOM and CVE view.** Read a CycloneDX or SPDX SBOM, list the components and licenses, and
@@ -100,8 +100,8 @@ checker, like Fabcheck is for EE.
 
 Done on 2026-11-02:
 - [x] Repos `fw_design_review` (public) and `fw_design_review_data` (private) created.
-- [x] The hub has a Signoff FW tile, panel, About section and sidebar link.
-- [x] EE, ME and PL sidebars link to Signoff FW. EE's and ME's `repos.suite` include the FW
+- [x] The hub has a Signoff FW tile, panel, About section, and sidebar link.
+- [x] EE, ME, and PL sidebars link to Signoff FW. EE's and ME's `repos.suite` include the FW
       repos, so Add FTE invites people to them.
 - [x] Signoff PL lists FW in `tools`. Its demo's firmware Part links to `fw:fdemo3`, and the OTA
       and ESD System requirements flow down to FW's REQ-001 and REQ-002 (the PL-held firmware

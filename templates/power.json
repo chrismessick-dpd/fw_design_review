@@ -3,7 +3,7 @@
   "title": "Power Management",
   "short": "Power",
   "version": 1,
-  "description": "Review of low-power modes, the energy budget, battery handling and behavior on brownout and power loss.",
+  "description": "Review of low-power modes, the energy budget, battery handling, and behavior on brownout and power loss.",
   "sections": [
     {
       "id": "pwr-mode",
@@ -46,7 +46,7 @@
         {
           "id": "pwr-mode-4",
           "text": "Peripherals and external parts are powered down or put to sleep when unused",
-          "hint": "Including sensors, radios and pull-ups on idle buses.",
+          "hint": "Including sensors, radios, and pull-ups on idle buses.",
           "tags": [
             "battery",
             "low-power"

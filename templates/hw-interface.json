@@ -3,7 +3,7 @@
   "title": "Hardware Interface",
   "short": "HW interface",
   "version": 1,
-  "description": "Review of the firmware's view of the hardware: pin and peripheral configuration against the schematic, clocks, drivers, errata, sensing, outputs and display.",
+  "description": "Review of the firmware's view of the hardware: pin and peripheral configuration against the schematic, clocks, drivers, errata, sensing, outputs, and display.",
   "sections": [
     {
       "id": "hsi-pin",
@@ -33,7 +33,7 @@
         },
         {
           "id": "hsi-pin-4",
-          "text": "Pull-ups, pull-downs and drive strength match what the circuit expects",
+          "text": "Pull-ups, pull-downs, and drive strength match what the circuit expects",
           "hint": "Internal pulls duplicated or missing against the schematic; drive strength too high for EMI.",
           "tags": [],
           "severity": "major"
@@ -41,7 +41,7 @@
         {
           "id": "hsi-pin-5",
           "text": "Peripheral instances and DMA channels are allocated without conflicts",
-          "hint": "Keep a table of which peripheral, DMA stream and interrupt each driver owns.",
+          "hint": "Keep a table of which peripheral, DMA stream, and interrupt each driver owns.",
           "tags": [],
           "severity": "major"
         },
@@ -124,7 +124,7 @@
         },
         {
           "id": "hsi-drv-4",
-          "text": "Cache, DMA and memory barriers are handled where the core has caches",
+          "text": "Cache, DMA, and memory barriers are handled where the core has caches",
           "hint": "Clean or invalidate around DMA buffers, or place them in non-cacheable memory.",
           "tags": [],
           "severity": "major"
@@ -132,7 +132,7 @@
         {
           "id": "hsi-drv-5",
           "text": "External devices are initialized in the order their datasheets require",
-          "hint": "Power sequencing, reset-release delays and the first register writes.",
+          "hint": "Power sequencing, reset-release delays, and the first register writes.",
           "tags": [],
           "severity": "minor"
         },
@@ -172,7 +172,7 @@
         },
         {
           "id": "hsi-adc-3",
-          "text": "Calibration constants are stored, versioned and range-checked on load",
+          "text": "Calibration constants are stored, versioned, and range-checked on load",
           "hint": "A blank or corrupt calibration must be detected and flagged, not used.",
           "tags": [
             "sensing"
@@ -181,7 +181,7 @@
         },
         {
           "id": "hsi-adc-4",
-          "text": "Open, short and out-of-range sensor readings are detected",
+          "text": "Open, short, and out-of-range sensor readings are detected",
           "hint": "Report a sensor fault instead of acting on an impossible value.",
           "tags": [
             "sensing"
@@ -218,7 +218,7 @@
       "items": [
         {
           "id": "hsi-act-1",
-          "text": "Outputs go to a safe state on any fault, reset or watchdog timeout",
+          "text": "Outputs go to a safe state on any fault, reset, or watchdog timeout",
           "hint": "Define the safe state per output. Verify it by forcing each fault on the bench.",
           "tags": [
             "actuators"
@@ -227,7 +227,7 @@
         },
         {
           "id": "hsi-act-2",
-          "text": "Minimum on and off times, interlocks and rate limits protect the load",
+          "text": "Minimum on and off times, interlocks, and rate limits protect the load",
           "hint": "E.g. compressor short-cycle protection, H-bridge dead time, relay contact wear.",
           "tags": [
             "actuators"
@@ -282,7 +282,7 @@
         {
           "id": "hsi-ui-2",
           "text": "Touch input is debounced and filtered against false presses",
-          "hint": "Includes water, ESD and a hand resting on the panel.",
+          "hint": "Includes water, ESD, and a hand resting on the panel.",
           "tags": [
             "display-ui"
           ],
@@ -308,7 +308,7 @@
         },
         {
           "id": "hsi-ui-5",
-          "text": "Text, units and formats can be localized if the product needs it",
+          "text": "Text, units, and formats can be localized if the product needs it",
           "hint": "Units (°C or °F), date and time formats, character sets.",
           "tags": [
             "display-ui"

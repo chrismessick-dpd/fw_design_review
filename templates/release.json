@@ -25,8 +25,8 @@
         },
         {
           "id": "rel-build-3",
-          "text": "The version, git hash and build date are embedded in the image and readable from the device",
-          "hint": "Over the service port, the UI or the cloud.",
+          "text": "The version, git hash, and build date are embedded in the image and readable from the device",
+          "hint": "Over the service port, the UI, or the cloud.",
           "tags": [],
           "severity": "major"
         },
@@ -46,7 +46,7 @@
         },
         {
           "id": "rel-build-6",
-          "text": "The ELF, map file and symbols are archived for every release",
+          "text": "The ELF, map file, and symbols are archived for every release",
           "hint": "Needed to decode crash dumps from the field.",
           "tags": [],
           "severity": "minor"
@@ -60,7 +60,7 @@
       "items": [
         {
           "id": "rel-mfg-1",
-          "text": "The factory programming procedure, image and fixture are documented and version-controlled",
+          "text": "The factory programming procedure, image, and fixture are documented and version-controlled",
           "hint": "Including the image hash the line should verify.",
           "tags": [],
           "severity": "major"
@@ -74,8 +74,8 @@
         },
         {
           "id": "rel-mfg-3",
-          "text": "Serial numbers, MAC addresses and calibration are written and recorded per unit",
-          "hint": "Traceable to the board, the image and the test result.",
+          "text": "Serial numbers, MAC addresses, and calibration are written and recorded per unit",
+          "hint": "Traceable to the board, the image, and the test result.",
           "tags": [],
           "severity": "major"
         },
@@ -113,7 +113,7 @@
       "items": [
         {
           "id": "rel-pkg-1",
-          "text": "Release notes list changes, known issues and the tested hardware revisions",
+          "text": "Release notes list changes, known issues, and the tested hardware revisions",
           "tags": [],
           "severity": "major"
         },

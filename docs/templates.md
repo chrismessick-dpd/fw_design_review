@@ -32,7 +32,7 @@ templates pulled from the repo are used instead of the bundled copy.
 }
 ```
 
-- `id` (template, section, item): lowercase letters, digits and `-`. Unique across **all**
+- `id` (template, section, item): lowercase letters, digits, and `-`. Unique across **all**
   templates. Never reuse or renumber an ID: reviews store their state by item ID.
   If an item is removed, its ID is retired; reviews keep its state and show it as retired.
 - Each checklist owns an ID prefix, and its section and item IDs start with it:
@@ -73,7 +73,7 @@ Use only these. `tools/validate_templates.py` rejects anything else (the list li
 | Tag | Applies when the firmware has… |
 | --- | --- |
 | `bare-metal` | Bare metal: Superloop or event loop, no RTOS |
-| `rtos` | RTOS: FreeRTOS, Zephyr, ThreadX and similar |
+| `rtos` | RTOS: FreeRTOS, Zephyr, ThreadX, and similar |
 | `multi-core` | Multiple processors: Co-processor, radio SoC, dual core |
 | `wireless` | Wireless: Wi-Fi, BLE, Thread, LoRa, cellular |
 | `cloud` | Cloud connected: Backend, MQTT / HTTPS, device fleet |
@@ -99,5 +99,5 @@ Use only these. `tools/validate_templates.py` rejects anything else (the list li
   ETSI EN 303 645 are fine), and label rules of thumb as such ("keep at least 25% margin").
 - One check per item. Avoid "and also…" items that can half pass.
 - Make checks something a reviewer can verify in the code, the map file, a trace capture, a
-  test report or on the bench, and say how in the hint.
+  test report, or on the bench, and say how in the hint.
 - American English spelling throughout (behavior, initialize, analyze, color).

@@ -2,14 +2,16 @@
 
 Signoff FW is the firmware design review tool, a prototype started 2026-11-02. It runs the
 **same engine as Signoff EE**, copied byte for byte from `../ee_design_review`, exactly as Signoff
-ME does. Also read `../CLAUDE.md`. The repo is meant to be public: no client data, tokens or
+ME does. Also read `../CLAUDE.md`. The repo is meant to be public: no client data, tokens, or
 commit messages naming clients.
+
+**Serial comma** (Chris, 2026-11-08): use the Oxford comma in every list of three or more, in UI text, docs, demo data, checklists, and commit messages: "A, B, and C". Never change check ids or data keys to fit it.
 
 ## Status
 
 - Repos `fw_design_review` (public) and `fw_design_review_data` (private) were created on
   2026-11-02. Chris turns on Pages.
-- Linked from the hub, the EE, ME and PL sidebars, and `repos.suite` in EE and ME. Signoff PL lists
+- Linked from the hub, the EE, ME, and PL sidebars, and `repos.suite` in EE and ME. Signoff PL lists
   it in `tools`, and PL's demo links its firmware Part to `fdemo3`, so **changing this demo means
   regenerating PL's snapshot** (`../signoff_pl/tools/demo_designs.html`) and stamping PL.
 
@@ -21,7 +23,7 @@ commit messages naming clients.
   `build.py` fails while the copies differ. After an engine change in EE, sync here too.
 - **What belongs to FW:**
   - `assets/config.js`: names, repos, the `review-fw-` prefix, 18 profile tags, stages, demo data
-  - `index.html` (title, brand, "Targets" and the suite links are hard-coded)
+  - `index.html` (title, brand, "Targets", and the suite links are hard-coded)
   - `templates/`: check-ID prefixes per checklist are in `templatePrefixes`
   - `tests/`
   - the docs

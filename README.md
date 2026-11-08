@@ -13,7 +13,7 @@ Pass / Issue / N/A, discuss them in comment threads, track issues to Fixed or Wa
 review report. Reviews sync through private GitHub repositories.
 
 It runs on the same engine as [Signoff EE](https://github.com/chrismessick-dpd/ee_design_review)
-and Signoff ME. Day-to-day use, requirements, keyboard shortcuts, sync, People & access and
+and Signoff ME. Day-to-day use, requirements, keyboard shortcuts, sync, People & access, and
 contractor zips all work as they do in those tools; Signoff ME's README covers them in full.
 
 - **196 checks in 11 checklists:** Requirements & Architecture, Hardware Interface, Startup,
@@ -21,7 +21,7 @@ contractor zips all work as they do in those tools; Signoff ME's README covers t
   Bootloader & Updates, Code Quality, Testing & Verification, and Build, Release & Production.
 - **Firmware profile:** tag a target by execution model (bare metal, RTOS, multiple processors),
   connectivity (wireless, cloud, field updates, USB), power (battery, low power), I/O (display,
-  sensing, outputs, motor control, storage) and context (security sensitive, functional safety,
+  sensing, outputs, motor control, storage), and context (security sensitive, functional safety,
   medical, volume production). Checks that don't fit are set aside as N/A, and you can still
   bring any of them back.
 - **Demo mode:** `index.html?demo` shows the Smart Thermostat's firmware (`fdemo3`), the same

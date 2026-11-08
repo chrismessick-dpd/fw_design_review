@@ -1,7 +1,7 @@
 /* Signoff FW: everything that differs between the Signoff tools (EE, ME, FW). The shared engine
-   (model.js, github.js, workspace.js, app.js, demo.js, styles.css and tools/*.py, vendored
+   (model.js, github.js, workspace.js, app.js, demo.js, styles.css, and tools/*.py, vendored
    from ee_design_review by tools/sync_engine.py) reads this. Keep the part after "=" strict
-   JSON: tools/build.py, validate_templates.py and package.py parse it too.
+   JSON: tools/build.py, validate_templates.py, and package.py parse it too.
 
    storage.ns:     localStorage namespace for this tool. The GitHub token (signoff.token) and
                    the theme (signoff.v1.settings -> theme) are shared by every Signoff tool.
@@ -9,7 +9,7 @@
                    another tool's (contractors find their repos by name prefix).
    repos.suite:    other repositories every FTE is invited to, next to this tool's own:
                    the other disciplines' tool and data repos, and the hub.
-   ids:            prefixes for new project, comment and custom-check IDs.
+   ids:            prefixes for new project, comment, and custom-check IDs.
    templatePrefixes: checklist id -> required prefix of its section and item IDs.
    words.unit(s):  what one review is called on screen (target: one firmware image, such as
                    the main MCU application or a co-processor's). "Project" is the client
@@ -50,7 +50,7 @@ window.SIGNOFF_CONFIG = {
   },
   "tags": [
     { "id": "bare-metal", "label": "Bare metal", "desc": "Superloop or event loop, no RTOS" },
-    { "id": "rtos", "label": "RTOS", "desc": "FreeRTOS, Zephyr, ThreadX and similar" },
+    { "id": "rtos", "label": "RTOS", "desc": "FreeRTOS, Zephyr, ThreadX, and similar" },
     { "id": "multi-core", "label": "Multiple processors", "desc": "Co-processor, radio SoC, dual core" },
     { "id": "wireless", "label": "Wireless", "desc": "Wi-Fi, BLE, Thread, LoRa, cellular" },
     { "id": "cloud", "label": "Cloud connected", "desc": "Backend, MQTT / HTTPS, device fleet" },
@@ -223,7 +223,7 @@ window.SIGNOFF_CONFIG = {
           "req-arch-3",
           "sec-vul-2"
         ],
-        "requirements": [{"parent": {"project": "pldemo", "id": "qdemo-ota", "ref": "REQ-009", "text": "Firmware shall update over the air and roll back after a failed image."}, "ref": "REQ-001", "text": "The bootloader shall keep the last good image and boot it after a failed update.", "category": "Firmware", "source": "Kickoff notes 2026-09-02", "method": "demonstration", "status": "approved", "verify": "open", "links": ["ota-upd-1", "ota-upd-2"], "by": "Jordan Brooks"}, {"parent": {"project": "pldemo", "id": "qdemo-esd", "ref": "REQ-002", "text": "Every user-accessible point shall withstand ±8 kV contact and ±15 kV air ESD."}, "ref": "REQ-002", "text": "The touch controller shall recover from an ESD event without a user-visible reset.", "category": "Interfaces", "source": "Acme DT-SPEC-12 §6.4", "method": "test", "status": "approved", "verify": "fail", "evidence": "ESD pre-scan 2026-10-21: touch stopped responding at ±8 kV contact on the bezel until power was cycled.", "links": ["hsi-ui-3", "tst-rob-3"], "by": "Ari Chen"}, {"ref": "REQ-003", "text": "Relay outputs shall be off within 100 ms of a reset, a watchdog timeout or a firmware fault.", "category": "Safety", "source": "Acme DT-SPEC-12 §4.5", "method": "test", "status": "approved", "verify": "pass", "evidence": "Bench run 2026-10-28: 500 forced watchdog resets, relays off within 4–9 ms each time.", "links": ["hsi-act-1", "hsi-pin-3", "mem-fault-1"], "by": "Ari Chen"}, {"ref": "REQ-004", "text": "The thermostat should keep its schedule and setpoints through a power cut of any length.", "kind": "should", "category": "Storage", "source": "Installer workshop 2026-09-15", "method": "demonstration", "status": "draft", "verify": "open", "links": ["mem-nv-2", "pwr-loss-2"], "by": "Jordan Brooks"}, {"ref": "REQ-005", "text": "Wi-Fi credentials and the device certificate shall be stored encrypted and never logged.", "category": "Security", "source": "Acme security questionnaire", "method": "inspection", "status": "approved", "verify": "open", "links": ["sec-key-3", "sec-key-4"], "by": "Jordan Brooks"}],
+        "requirements": [{"parent": {"project": "pldemo", "id": "qdemo-ota", "ref": "REQ-009", "text": "Firmware shall update over the air and roll back after a failed image."}, "ref": "REQ-001", "text": "The bootloader shall keep the last good image and boot it after a failed update.", "category": "Firmware", "source": "Kickoff notes 2026-09-02", "method": "demonstration", "status": "approved", "verify": "open", "links": ["ota-upd-1", "ota-upd-2"], "by": "Jordan Brooks"}, {"parent": {"project": "pldemo", "id": "qdemo-esd", "ref": "REQ-002", "text": "Every user-accessible point shall withstand ±8 kV contact and ±15 kV air ESD."}, "ref": "REQ-002", "text": "The touch controller shall recover from an ESD event without a user-visible reset.", "category": "Interfaces", "source": "Acme DT-SPEC-12 §6.4", "method": "test", "status": "approved", "verify": "fail", "evidence": "ESD pre-scan 2026-10-21: touch stopped responding at ±8 kV contact on the bezel until power was cycled.", "links": ["hsi-ui-3", "tst-rob-3"], "by": "Ari Chen"}, {"ref": "REQ-003", "text": "Relay outputs shall be off within 100 ms of a reset, a watchdog timeout, or a firmware fault.", "category": "Safety", "source": "Acme DT-SPEC-12 §4.5", "method": "test", "status": "approved", "verify": "pass", "evidence": "Bench run 2026-10-28: 500 forced watchdog resets, relays off within 4–9 ms each time.", "links": ["hsi-act-1", "hsi-pin-3", "mem-fault-1"], "by": "Ari Chen"}, {"ref": "REQ-004", "text": "The thermostat should keep its schedule and setpoints through a power cut of any length.", "kind": "should", "category": "Storage", "source": "Installer workshop 2026-09-15", "method": "demonstration", "status": "draft", "verify": "open", "links": ["mem-nv-2", "pwr-loss-2"], "by": "Jordan Brooks"}, {"ref": "REQ-005", "text": "Wi-Fi credentials and the device certificate shall be stored encrypted and never logged.", "category": "Security", "source": "Acme security questionnaire", "method": "inspection", "status": "approved", "verify": "open", "links": ["sec-key-3", "sec-key-4"], "by": "Jordan Brooks"}],
         "ratios": {
           "requirements": 0.8,
           "hw-interface": 0.6,

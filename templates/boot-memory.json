@@ -3,7 +3,7 @@
   "title": "Startup, Memory & Faults",
   "short": "Memory & faults",
   "version": 1,
-  "description": "Review of startup, the memory map and linker script, stack and heap use, non-volatile storage, fault handling and the watchdog.",
+  "description": "Review of startup, the memory map and linker script, stack and heap use, non-volatile storage, fault handling, and the watchdog.",
   "sections": [
     {
       "id": "mem-boot",
@@ -12,15 +12,15 @@
       "items": [
         {
           "id": "mem-boot-1",
-          "text": "Startup code initializes .data and .bss, clocks and the FPU before main",
+          "text": "Startup code initializes .data and .bss, clocks, and the FPU before main",
           "hint": "Review vendor startup files rather than trusting them. Check the vector table location.",
           "tags": [],
           "severity": "major"
         },
         {
           "id": "mem-boot-2",
-          "text": "The reset cause is read, logged and cleared at every boot",
-          "hint": "Power-on, brownout, watchdog, software or pin reset. It's the first clue to field failures.",
+          "text": "The reset cause is read, logged, and cleared at every boot",
+          "hint": "Power-on, brownout, watchdog, software, or pin reset. It's the first clue to field failures.",
           "tags": [],
           "severity": "major"
         },
@@ -68,7 +68,7 @@
         },
         {
           "id": "mem-map-4",
-          "text": "Stack overflow is detected (MPU guard, canary or RTOS check)",
+          "text": "Stack overflow is detected (MPU guard, canary, or RTOS check)",
           "hint": "An overflow that silently corrupts RAM is the hardest bug to find in the field.",
           "tags": [],
           "severity": "major"
@@ -96,8 +96,8 @@
       "items": [
         {
           "id": "mem-nv-1",
-          "text": "Stored data has a version, a length and a CRC",
-          "hint": "So the firmware can tell blank, corrupt and old-format data apart.",
+          "text": "Stored data has a version, a length, and a CRC",
+          "hint": "So the firmware can tell blank, corrupt, and old-format data apart.",
           "tags": [],
           "severity": "major"
         },
@@ -147,8 +147,8 @@
         },
         {
           "id": "mem-fault-2",
-          "text": "Fault handlers (HardFault, bus or memory faults) capture state for later diagnosis",
-          "hint": "Save the PC, LR and fault registers to retained RAM or flash, then reset.",
+          "text": "Fault handlers (HardFault, bus, or memory faults) capture state for later diagnosis",
+          "hint": "Save the PC, LR, and fault registers to retained RAM or flash, then reset.",
           "tags": [],
           "severity": "major"
         },
@@ -175,7 +175,7 @@
         },
         {
           "id": "mem-fault-6",
-          "text": "The MPU protects code, stacks and peripherals where the core has one",
+          "text": "The MPU protects code, stacks, and peripherals where the core has one",
           "hint": "At least a guard region below each stack and no-execute on RAM.",
           "tags": [],
           "severity": "minor"
