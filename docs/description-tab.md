@@ -63,7 +63,7 @@ Make the LED pulse instead of blink @req
 | State | How it looks | Where it shows |
 | --- | --- | --- |
 | **Linked** | faint solid outline; hover shows REQ chips; click opens the requirement | the requirement's *Described in* |
-| **`@req`** | dashed outline and a small flag | the **To requirementify** inbox |
+| **`@req`** | dashed outline and a small flag | the **Write as requirements** inbox |
 | **Untraced** | plain text, a mark in the margin | the Untraced count and filter |
 | **Standard** | plain text in a quieter style, no mark | nowhere |
 
@@ -163,7 +163,7 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   editor shows refs and titles (`{REQ-004}`, `{#Status frame}`) and saves ids (`specToEditor`,
   `specFromEditor`). Sentences are split so a span is never cut and a span that ends a sentence ends it.
   A pointer to an interface section counts as traced. `summary.spec` carries the gists and gaps.
-- **Tab:** an outline beside the document (headings, gists, or full text), the *To requirementify*
+- **Tab:** an outline beside the document (headings, gists, or full text), the *Write as requirements*
   and *Not described* lists, and a Diagram view. Clicking a sentence opens a panel: link or unlink a
   requirement, Make requirement, Change REQ-0xx (for a flagged note in a section that links one),
   Mark standard, Flag @req, Edit section. A requirement's panel has *Described in* (or Describe in…).
@@ -216,8 +216,11 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   the other as "<title> (conflict copy)" right after it, with `conflictOf`; every merge of the same
   pair makes the same copy, once. The tab lists them under *Edited in two places* (Newer version, Edit
   copy, Delete copy). Sections from before `hist` merge newer-wins.
-- **`@req` in comments:** a comment anywhere in the review flagged `@req` waits in *To
-  requirementify* with who wrote it and what it's on. New requirement makes a draft traced to the
+- **Write as requirements** is the inbox's name (Chris, 2026-11-08; it was "To requirementify"). Each
+  item says where it came from under its text: "Tagged @req in the description, in 3V3 buck, by Sam
+  Patel, 7 d ago", or "Tagged @req in a comment from Sam Patel on <the check>, just now".
+- **`@req` in comments:** a comment anywhere in the review flagged `@req` waits in *Write as
+  requirements* with who wrote it and what it's on. New requirement makes a draft traced to the
   check it's on; on a requirement, Change marks it Changed. Each way, or Remove flag, the comment is
   marked handled (`reqDone`) and its words stay as written. Comment boxes hint at `@req`. The
   summary's `flagged` still counts the description's sentences only.
@@ -227,6 +230,13 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 - **Synced:** the engine is vendored into Fabcheck, Loom, and the hub's `suite.css` on their own
   `description` branches (`_desc/pcb_dfm`, `_desc/loom`, `_desc/signoff`). Loom's sync also wanted to
   copy newer Fabcheck parsers and `github.js` (drift on `main`, unrelated); those were left as they are.
+
+## Signoff EE
+
+EE uses the same tab as a schematic block diagram: subcircuit kinds, Connects and Supplies with
+signal and rail names, Parts, and a left-to-right flow layout with power along the top. Kinds, link
+words, and the layout are config (`config.spec`), and FW's defaults are what this doc describes. See
+`ee_design_review/docs/block-diagram.md`.
 
 ## The guide (2026-11-08)
 
