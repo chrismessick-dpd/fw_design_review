@@ -15,6 +15,11 @@ commit messages naming clients.
   it in `tools`, and PL's demo links its firmware Part to `fdemo3`, so **changing this demo means
   regenerating PL's snapshot** (`../signoff_pl/tools/demo_designs.html`) and stamping PL.
 
+- **Description tab (prototype on branch `description`, 2026-11-08, not merged):** a free-form
+  description of the firmware, top level to drivers, linked to requirements both ways, with `@req`
+  tags, standard text, and a diagram drawn from the outline. Engine work in EE behind `config.spec`,
+  on here. Decisions, the design, and what the prototype does are in `docs/description-tab.md`.
+
 ## Rules
 
 - **Never edit the engine files here.** These are `assets/model.js`, `github.js`,
