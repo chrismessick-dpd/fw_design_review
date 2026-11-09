@@ -38,6 +38,7 @@ window.SIGNOFF_CONFIG = {
   "stages": ["Concept", "Architecture", "Implementation", "Integration (EVT)", "Validation (DVT)", "Release candidate", "Released"],
   "defaultStage": "Implementation",
   "legacyTabs": [],
+  "pl": { "tool": "fw", "dataRepo": "signoff_pl_data" },
   "words": {
     "unit": "target",
     "units": "targets",
