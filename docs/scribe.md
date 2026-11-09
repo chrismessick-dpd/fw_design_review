@@ -1,7 +1,8 @@
-# Signoff FW: a Description tab (design)
+# Scribe FW: the description tab in Signoff FW (design)
 
-2026-11-08. Status: a working prototype on branch `description` (EE, ME, FW, and PL), not merged.
-The tab is called **Description** (Chris, 2026-11-08; he first called it "Plain Text Requirements"). *The prototype* below says what was built and where it differs from this design.
+2026-11-08. Status: built and pushed (Signoff FW, and the shared engine in EE).
+The tab is called **Scribe** (Chris, 2026-11-08: "it's now a little tool, and we'll have Scribe EE and Scribe FW"). It was
+first "Plain Text Requirements", then "Description". Data keys stay `spec`. *The prototype* below says what was built and where it differs from this design.
 
 ## Why
 
@@ -150,14 +151,14 @@ the FW demo, so PL's snapshot is regenerated (`CLAUDE.md`, *Status*).
 ## The prototype (2026-11-08, branch `description`)
 
 Built in the engine (EE `model.js`, `app.js`, `demo.js`, `styles.css`) and synced into ME and FW.
-Each tool offers it with `"spec": { "label": "Description" }` in `config.js`, and a review picks it
+Each tool offers it with `"spec": { "label": "Scribe" }` in `config.js`, and a review picks it
 in its details window beside Requirements and the checklists (`'spec'` in `meta.checklists`,
 `model.specEnabled`; Chris, 2026-11-08). FW ticks it for new reviews (`"default": true`); EE leaves it off. ME doesn't offer it
 (Chris, 2026-11-08: a part's design intent has no diagram worth drawing; revisit with ME input). A review from before the pick shows a description it already has; unpicked, the
 description is kept but hidden, and left out of `summary.spec`. Served for review from the
 `_desc/` worktrees (preview `signoff-desc`, port 8793): `fw_design_review/index.html?demo&project=fdemo3`.
 
-- **Model** (`model.js`, *Description*): `project.spec` holds one record per heading section, merged
+- **Model** (`model.js`, *Scribe*): `project.spec` holds one record per heading section, merged
   newer-wins per section. Bodies use the markup in *The document*: `[text]{q:id}` links, `[text]{std}`
   standard text, `[text]{s:id}` pointers, `@req`, `Uses:`, `> gist`, lists, tables, and code. The
   editor shows refs and titles (`{REQ-004}`, `{#Status frame}`) and saves ids (`specToEditor`,
@@ -236,7 +237,7 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 EE uses the same tab as a schematic block diagram: subcircuit kinds, Connects and Supplies with
 signal and rail names, Parts, and a left-to-right flow layout with power along the top. Kinds, link
 words, and the layout are config (`config.spec`), and FW's defaults are what this doc describes. See
-`ee_design_review/docs/block-diagram.md`.
+`ee_design_review/docs/scribe-ee.md`.
 
 ## The guide (2026-11-08)
 
@@ -284,7 +285,7 @@ line that made it in, and drops a group heading (Drivers, Interfaces) with nothi
   classification, Risk controls (also Functional safety), and SOUP; Volume production adds
   Manufacturing. Every section holds a question to answer in its place, so it counts as untraced
   until it's written.
-- A new review with Description ticked starts from it. An empty description offers **Start from
+- A new review with Scribe ticked starts from it. An empty description offers **Start from
   template**, which shows the text (editable) before adding it. Nothing overwrites a description.
 - Kinds use `* kind`, so the diagram draws from the first save.
 - Tests: EE checks the pruning; FW applies the template for each of the 18 tags alone, none, and all,

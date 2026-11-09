@@ -40,7 +40,7 @@ window.SIGNOFF_CONFIG = {
   "legacyTabs": [],
   "pl": { "tool": "fw", "dataRepo": "signoff_pl_data" },
   "spec": {
-    "label": "Description", "default": true, "guide": 3,
+    "label": "Scribe", "default": true, "guide": 3,
     "template": [
       {"lines": ["# {name} * product", "What does this firmware do, on which processor, and for whom? Name the boards it runs on and what it controls."]},
       {"when": ["rtos"], "lines": ["## Software structure", "Which RTOS, and which tasks at which priorities? How do tasks share data (queues, events, or mutexes), and which task owns each peripheral?", "Uses: Application, Measurement, Output control, Motor control, User interface, Connectivity, Cloud link, USB link, Data logging, Update agent, Power manager"]},
