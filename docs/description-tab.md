@@ -152,8 +152,8 @@ the FW demo, so PL's snapshot is regenerated (`CLAUDE.md`, *Status*).
 Built in the engine (EE `model.js`, `app.js`, `demo.js`, `styles.css`) and synced into ME and FW.
 Each tool offers it with `"spec": { "label": "Description" }` in `config.js`, and a review picks it
 in its details window beside Requirements and the checklists (`'spec'` in `meta.checklists`,
-`model.specEnabled`; Chris, 2026-11-08). FW ticks it for new reviews (`"default": true`); EE and ME
-leave it off. A review from before the pick shows a description it already has; unpicked, the
+`model.specEnabled`; Chris, 2026-11-08). FW ticks it for new reviews (`"default": true`); EE leaves it off. ME doesn't offer it
+(Chris, 2026-11-08: a part's design intent has no diagram worth drawing; revisit with ME input). A review from before the pick shows a description it already has; unpicked, the
 description is kept but hidden, and left out of `summary.spec`. Served for review from the
 `_desc/` worktrees (preview `signoff-desc`, port 8793): `fw_design_review/index.html?demo&project=fdemo3`.
 
