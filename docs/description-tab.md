@@ -228,6 +228,33 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   `description` branches (`_desc/pcb_dfm`, `_desc/loom`, `_desc/signoff`). Loom's sync also wanted to
   copy newer Fabcheck parsers and `github.js` (drift on `main`, unrelated); those were left as they are.
 
+## The guide (2026-11-08)
+
+`assets/specguide.js` (an engine file, `window.SignoffSpecGuide`), after Loom's guide
+(`loom/assets/guide.js`): a card with 23 steps in six chapters (Welcome, Tied to requirements,
+Writing, The diagram, Sharing, Done), each a title, what the feature is, a *Try it* task, a `setup`,
+and a `spot` ringed every frame (`#sg-guide-spot`). Back, Next, Contents, and a draggable top line,
+as in Loom; `{Edit all}` in a step's text is a button chip and `{k:Esc}` a key. The visitor makes a
+requirement from the hysteresis sentence, links a phrase, clears the inbox, describes REQ-005, edits
+a section, sets a kind, adds to Uses, renames a heading in Edit all, adds a Scheduler block from the
+diagram, writes its text and its requirement, connects and moves it, and uses the block panel.
+
+- **Where it runs.** Only on the demo review named by `config.spec.guide` (a demo seed; FW sets 3,
+  the thermostat firmware). The tab's Guide button and the Writing guide's *Take the guide* show only
+  there. Started from a real review it reopens `?demo&project=fdemo3&guide`, and its last step offers
+  Back to my reviews. If the visitor changed the demo firmware, Start asks before rebuilding it from
+  the demo (`Signoff.app.spec.stale` and `fresh`); with Cancel the steps fall back where they can.
+- **How it drives the page.** Through `Signoff.app.spec` in `app.js` (`open`, `unit`, `block`,
+  `edit`, `editAll`, `req`, `section`, `newest`, `goto`), not clicks, since the page is redrawn with
+  innerHTML. A block the visitor added is found as the newest section without a fixed demo id.
+- **The card** takes the corner of the page covering least: never the ring if it can help it, and
+  not the details pane or the editor. On a narrow screen it docks at the top. It re-places itself when
+  the pane opens or settles, an editor or sheet appears, or the ring moves. The hub's tour hides while
+  it runs (`body.sg-guide-on`). State is sessionStorage `signoff.specGuide`.
+- **Keep it current.** When a feature a step describes changes, update the step. A quick check: run
+  `SignoffSpecGuide.go(i)` for each step in a laid-out tab and look that `SignoffSpecGuide.target()`
+  finds something (steps 22 and 23 ring nothing).
+
 Not done yet: Partcheck's `me-send` branch isn't synced;
 how much of IEC 62304's design description the export should cover. Nothing has been tried with a real
 token.

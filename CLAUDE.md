@@ -19,11 +19,14 @@ commit messages naming clients.
   description of the firmware, top level to drivers, linked to requirements both ways, with `@req`
   tags, standard text, and a diagram drawn from the outline. Engine work in EE behind `config.spec`,
   on here. Decisions, the design, and what the prototype does are in `docs/description-tab.md`.
+- **The Description guide** (`assets/specguide.js`, engine; 2026-11-08): a 23-step walk through the tab
+  on the thermostat demo (`config.spec.guide`: 3), opened from the tab's Guide button. Update a step
+  when the feature it describes changes (see the design doc, *The guide*).
 
 ## Rules
 
 - **Never edit the engine files here.** These are `assets/model.js`, `github.js`,
-  `workspace.js`, `app.js`, `demo.js`, `styles.css` and `tools/build.py`, `package.py`,
+  `workspace.js`, `app.js`, `demo.js`, `specguide.js`, `styles.css` and `tools/build.py`, `package.py`,
   `validate_templates.py`. Fix them in EE, then run `python tools/sync_engine.py` here.
   `build.py` fails while the copies differ. After an engine change in EE, sync here too.
 - **What belongs to FW:**

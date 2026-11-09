@@ -39,7 +39,7 @@ window.SIGNOFF_CONFIG = {
   "defaultStage": "Implementation",
   "legacyTabs": [],
   "pl": { "tool": "fw", "dataRepo": "signoff_pl_data" },
-  "spec": { "label": "Description", "default": true },
+  "spec": { "label": "Description", "default": true, "guide": 3 },
   "words": {
     "unit": "target",
     "units": "targets",
