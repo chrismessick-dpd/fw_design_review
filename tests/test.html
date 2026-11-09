@@ -346,6 +346,36 @@
   var nowIso = new Date().toISOString();
   ok(demo.every(function (d) { return M.projectSummary(d, T).at <= nowIso; }), 'demo edits are all in the past');
 
+  // The Description template (config.spec.template): every profile tag alone, none, and all of them
+  // give a description whose Uses lines name only sections that are there and whose kinds draw a diagram.
+  (function () {
+    var tags = M.TAGS.map(function (t) { return t.id; });
+    var tpl = CFG.spec && CFG.spec.template;
+    ok(Array.isArray(tpl) && tpl.length > 0, 'FW has a Description template');
+    var known = {}; tags.forEach(function (t) { known[t] = true; });
+    ok(tpl.every(function (e) { return (e.when || []).concat(e.unless || []).every(function (t) { return known[t]; }); }), 'the template names only profile tags that exist');
+    var bad = [];
+    [[]].concat(tags.map(function (t) { return [t]; })).concat([tags]).forEach(function (prof) {
+      var tp = M.newProject({ name: 'Template check', checklists: ['spec'], profile: prof }, 'Ann', T);
+      tp.spec = {};
+      M.specSave(tp, null, M.specTemplate(tp), 'Ann').forEach(function (r) { tp.spec[r.id] = r; });
+      var secs = M.liveSpec(tp), titles = {};
+      secs.forEach(function (s) { titles[s.title.toLowerCase()] = true; });
+      secs.forEach(function (s) {
+        M.specUsesNames(s.body).forEach(function (n) { if (!titles[n.toLowerCase()]) bad.push(prof.join('+') + ': ' + s.title + ' uses ' + n); });
+        if (!s.body.trim() && !secs.some(function (x) { return x.order > s.order && x.level > s.level; })) bad.push(prof.join('+') + ': empty ' + s.title);
+      });
+      if (secs[0].kind !== 'product' || secs[0].title !== 'Template check') bad.push(prof.join('+') + ': first section ' + secs[0].title);
+      if (secs.filter(function (s) { return s.kind; }).length < 4) bad.push(prof.join('+') + ': few blocks');
+      if (M.specAnalysis(tp).sections.length !== secs.length) bad.push(prof.join('+') + ': analysis');
+    });
+    eq(bad, [], 'the template gives a sound description for each profile tag, none, and all');
+    var gp = M.newProject({ name: 'G', checklists: ['spec'], profile: ['rtos', 'usb', 'medical'] }, 'Ann', T);
+    var gt = M.specTemplate(gp);
+    ok(gt.indexOf('### USB link * task') > 0 && gt.indexOf('### USB protocol * interface') > 0 && gt.indexOf('## SOUP') > 0 && gt.indexOf('Connectivity') < 0 && gt.indexOf('Superloop') < 0,
+      'profile items choose the sections', gt);
+  })();
+
   var failed = results.filter(function (r) { return !r.ok; });
   document.getElementById('out').innerHTML = results.map(function (r) {
     return '<div class="' + (r.ok ? 'pass' : 'fail') + '">' + (r.ok ? '✓ ' : '✗ ') + r.name + '</div>' + (r.ok ? '' : '<pre>' + (r.detail || '') + '</pre>');

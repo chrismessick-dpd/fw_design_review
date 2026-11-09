@@ -185,8 +185,8 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 - **Building in the diagram:** every layer is drawn, empty ones too, each with a + that adds a block
   (a new section: after the last of its kind, else under the block that uses it; *Used by* adds it to
   that block's Uses line). Clicking a block opens its panel: name (a rename follows into every Uses
-  line), kind, gist (the `>` line), Uses (add from a list, remove with ×), Used by, Write its text,
-  Read it, Add a <next layer> it uses, and Delete. Everything is written to the text
+  line), kind, gist (the `>` line), Uses (add from a list, remove with ×), Used by, Gaps (each untraced or flagged sentence; click to open it), Edit its text,
+  Show in document, Add a <next layer> it uses, and Delete. Everything is written to the text
   (`specAddBlock`, `specSetLine`, `specRename`). Renaming a heading in either editor also renames it in
   Uses lines. An empty description can be built from the diagram (*Build it in the diagram*).
 - **Drag to connect:** each block has a dot on its bottom edge (on hover, or always on touch
@@ -258,3 +258,24 @@ diagram, writes its text and its requirement, connects and moves it, and uses th
 Not done yet: Partcheck's `me-send` branch isn't synced;
 how much of IEC 62304's design description the export should cover. Nothing has been tried with a real
 token.
+
+## The template (2026-11-08)
+
+Chris: a new firmware review's description should start with default sections, chosen by the
+firmware profile, the way the thermostat demo is laid out. `config.spec.template` (FW's `config.js`)
+is a list of entries `{ when: [tags], unless: [tags], lines: [...] }`: an entry is used when it has no
+`when` or the profile has one of them, and none of its `unless`. `{name}` is the review's name. The
+engine's `model.specTemplate(project)` joins the chosen entries, keeps only the names in each Uses
+line that made it in, and drops a group heading (Drivers, Interfaces) with nothing under it.
+
+- The layout follows the demo: the product, Software structure (RTOS tasks, a main loop for bare
+  metal, or a question when neither is picked) with its tasks, Fault handling and the other modules,
+  Drivers, Bootloader, Hardware, and Interfaces with an ICD table. Medical adds IEC 62304's safety
+  classification, Risk controls (also Functional safety), and SOUP; Volume production adds
+  Manufacturing. Every section holds a question to answer in its place, so it counts as untraced
+  until it's written.
+- A new review with Description ticked starts from it. An empty description offers **Start from
+  template**, which shows the text (editable) before adding it. Nothing overwrites a description.
+- Kinds use `* kind`, so the diagram draws from the first save.
+- Tests: EE checks the pruning; FW applies the template for each of the 18 tags alone, none, and all,
+  and checks every Uses name resolves.
