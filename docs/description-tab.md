@@ -185,8 +185,8 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 - **Building in the diagram:** every layer is drawn, empty ones too, each with a + that adds a block
   (a new section: after the last of its kind, else under the block that uses it; *Used by* adds it to
   that block's Uses line). Clicking a block opens its panel: name (a rename follows into every Uses
-  line), kind, gist (the `>` line), Uses (add from a list, remove with ×), Used by, Write its text,
-  Read it, Add a <next layer> it uses, and Delete. Everything is written to the text
+  line), kind, gist (the `>` line), Uses (add from a list, remove with ×), Used by, Edit its text,
+  Show in document, Add a <next layer> it uses, and Delete. Everything is written to the text
   (`specAddBlock`, `specSetLine`, `specRename`). Renaming a heading in either editor also renames it in
   Uses lines. An empty description can be built from the diagram (*Build it in the diagram*).
 - **Drag to connect:** each block has a dot on its bottom edge (on hover, or always on touch
