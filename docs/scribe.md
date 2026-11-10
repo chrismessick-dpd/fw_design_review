@@ -330,6 +330,50 @@ Asked with the options below (the recommendation first in each). Chris chose: **
   Interfaces") has no gist, so PL doesn't show it. (1) Its gist lists the sections under it ("Status
   frame, Debug port"). (2) Leave it out; write a `>` line to show it. (3) Keep the title with no gist.
 
+### What was built from the decisions (2026-11-09, branch `scribe-fixes`)
+
+- **A. Review notes.** A sentence or list item whose words start `Check:` (any case) is a `note`
+  (`SPEC_NOTE` in `model.js`): its own state after `@req` (a flagged note stays in the inbox), counted
+  in `counts.note` and `totals.note`, listed on each section as `notes`, never a gap, never the gist, and
+  a link inside it doesn't describe its requirement. On screen: a boxed CHECK label (a double border,
+  not a hue), a quieter sentence, a ringed count beside the gap count in the outline and on headings,
+  "N review notes" in the header, a *Review notes* list in a block's panel, and "N notes" on a block
+  with no gaps. The sentence panel has **Resolve**, which takes the note out (`specRemoveUnit`: its line
+  when it has one to itself, else the sentence and its space), with Undo. **Gaps** and **Notes** beside
+  the depth buttons show only the sections that have them, with the other sentences dimmed (opacity).
+  The choice is kept; a jump to a hidden section or sentence (Show in document, a Uses chip, the inbox,
+  Described in) turns it off, the guide always does, and the control stays while it's on.
+  `summary.spec.notes` counts them for PL ("N review notes"; reader `CACHE_V` 10). The three real
+  descriptions' untraced sentences were all `Check:` notes, so they become notes as they are.
+- **B.** Untraced reads **Unlinked** everywhere on screen (sentence panel, header, gap list, diagram
+  note, guide, writing guide, PL). Data keys stay `untraced`.
+- **C.** A review with no checks shows its requirements on the Overview: the ring is the share verified,
+  "requirements verified", and the four counts are Verified, Failing, Not verified, and Requirements,
+  each opening the Requirements tab. The sidebar's ring, `pct`, and the summary stay 100%.
+- **D.** Single newlines still join; a line that starts `Check:` starts its own paragraph.
+- **E.** In the layered diagram, lines from one block to three or more on one line below share a trunk
+  to a split point just above them and fan out there (a click on the fan-out removes that link, never
+  the trunk). Pointing at a block brings its own lines forward (thicker) and fades the rest, in both the
+  layered and EE's flow diagram; a selected block keeps that in the layered diagram. EE's flow diagram
+  isn't bundled.
+- **F.** Every interface is a block in the Interfaces layer, with dashed lines to the blocks that use
+  it; there are no pills.
+- **G.** `{REQ-044..REQ-063}` (or `..063`, or an en dash) is written out on save as every requirement
+  in that run that exists (`specRange`; none existing leaves it as typed, shown not found). `\|` is a bar
+  inside a cell (`specCells`). A table row with a mark is a unit, counted like a sentence and listed in
+  *Described in*; it draws with its marks and opens its panel, and edits keep its cells (never wrapped
+  or flagged; a link goes into its mark). Uses names: brackets at the end are still a detail ("MCU
+  (flash)" is the MCU, as a real description used them), but a heading whose title has the brackets
+  ("Sensor (ADC)") is matched first (`specUseId`, `specUseIs`), and quotes hold commas or brackets; the
+  editors write such names in quotes. Renames follow both kinds.
+- **Empty groups.** A heading with only headings under it gets the titles of the ones directly under it
+  as its gist in `summary.spec`; one with nothing under it at all is left out.
+
+Tests: EE 380, ME 62, FW 70, PL 240, Loom 26; command line 34 in each of EE, ME, and FW. On the three
+real descriptions (locally): only untraced → note changes, Uses links and *Not described* are the same,
+and Edit all round-trips each. At their next sync their `summary.spec` gains `notes`, `untraced` drops
+to 0, and empty groups list their sections.
+
 ## Signoff EE
 
 EE uses the same tab as a schematic block diagram: subcircuit kinds, Connects and Supplies with
