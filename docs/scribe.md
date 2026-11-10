@@ -193,7 +193,8 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 - **Drag to connect:** each block has a dot on its bottom edge (on hover, or always on touch
   screens). Dragging from it to another block adds that block to the first one's Uses line; the
   direction is from where the drag starts, whichever layer the target is in. Clicking a Uses line
-  asks, then removes that name from the Uses line.
+  removes that name from the Uses line at once, with Undo in the message (2026-11-09; it used to ask,
+  and the panel's × didn't).
 - **Menus** (the engine's `menu()`) scroll when taller than the window and open upward when there's
   more room above.
 - **Diagram:** layers by kind; lines from `Uses:`, else from the nearest section above it in the
@@ -231,6 +232,103 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
 - **Synced:** the engine is vendored into Fabcheck, Loom, and the hub's `suite.css` on their own
   `description` branches (`_desc/pcb_dfm`, `_desc/loom`, `_desc/signoff`). Loom's sync also wanted to
   copy newer Fabcheck parsers and `github.js` (drift on `main`, unrelated); those were left as they are.
+
+## First real use (2026-11-09)
+
+Three large descriptions (38–41 sections, 78–115 requirements, and 30–72 notes each) were written
+through `specSaveAll` and read in FW's demo at about 800 × 600. Branch `scribe-fixes` fixes what that
+turned up (engine in EE, synced to ME and FW, vendored to PL, Fabcheck, and Loom):
+
+- **Marks are scanned, not matched** (`specSpans`, `specSpanReplace` in `model.js`). A mark's words
+  may hold balanced brackets (`[It reads buf[0] first.]{std}`) and `` `code` ``, whose brackets and
+  braces never count; a backtick pair outside a mark is code too, so `` `cfg[i]{0}` `` is never a mark.
+  Every reader of marks uses the scanner (sentences, units, edits, the editor's refs, Markdown, and
+  `specPlain`).
+- **A mark that doesn't parse is flagged**, not silently untraced: "]{" left outside marks and code
+  makes the sentence `broken`. It shows a wavy underline and a hatched *mark?* badge, its panel says
+  why, and the panel's buttons and Make requirement leave it alone (wrapping it would make another).
+  Both editors list such lines under the text as you type (`specBrokenMarks`), each with a button that
+  puts the cursor there; saving says how many are flagged.
+- **Sentence splitting** (`specStopEnds`): a mark whose words end a sentence ends it, whatever comes
+  next; a sentence may start with a lowercase identifier (`kff is added …`). Strong abbreviations (e.g.,
+  i.e., vs., cf., viz., approx., incl.) never end one. Weak ones (No., Fig., rev., ref., V., min., max.,
+  etc., …) and dotted initials (a.k.a.) hold only before a lowercase word or a number, and rev., ref.,
+  No., and Fig. also before a single capital or a ref (`rev. B`, `ref. REQ-004`). So `above 22 V. The
+  pump` splits. A question or exclamation mark ends one only before a capital, since one inside a quoted
+  string runs on (`("RELAY ON!") when …`). A note glued to a linked sentence
+  is its own sentence once the sentence before it ends with a full stop; the writing guide says so in
+  *Marks and sentences*.
+- **`specPlain`** drops a space before punctuation only where the punctuation ends a word, so "the
+  .cfg file" keeps its space.
+- **Long sections**: a review keeps up to 100,000 characters per section (`SPEC_BODY_MAX`, was 40,000,
+  cut silently). The editors, Paste text, and Start from template refuse to save a longer one and name
+  it (`specTooLong`); the editor warns while you type. Renames that rewrite other sections' Uses lines
+  start from the stored body (`specRawBody`), never the cut copy.
+- **The summary's gists** (`summary.spec`): a heading with nothing written under it (a group such as
+  Interfaces) is left out, up to 40 are kept (`SPEC_GISTS`, was 12, cut with no marker), and `more`
+  counts the rest. PL's reader keeps 40 and `more` (`CACHE_V` 9) and shows "and N more sections in the
+  review". The FW demo's summary lost its three empty groups; PL's snapshot was regenerated.
+- **Kind labels** (`specKindLabel`, `specKindPlural`): `config.spec.kinds` may give `label` and
+  `plural`; without them, the id capitalized, and hardware, software, firmware, and power have no
+  plural. The layer said "HARDWARES".
+- **The layered diagram** wraps a crowded layer onto more lines (blocks stay at least 150 wide) and
+  breaks a long name onto two lines; dragging between layers reads each layer's band (`data-bands`) and
+  places a block in reading order. Names were cut to 4–7 characters at 9–12 blocks in a row.
+- **Removing a link** from a diagram line or the block panel's × happens at once, with Undo in the
+  message (`toast` takes an action). One writer lost a link to a single click.
+- **Jumps** (outline, Write as requirements) check where they landed once the smooth scroll ends and
+  correct it (`specScrollTo`). Switching Document and Diagram closes the other view's panel: on a
+  narrow screen a block's panel is a sheet over the depth buttons, which is the likeliest reason a
+  depth click seemed ignored (not reproduced).
+- **Wide tables** scroll sideways inside their card at every width (the Requirements card had
+  `overflow:hidden` above 860 px, so its right columns clipped beside the sidebar), with a shade on the
+  edge that has more. A table in the text scrolls inside itself (70% of the window high) with its header
+  row pinned, so its sideways scrollbar is on screen; its columns keep a readable width.
+
+Tests: EE 356 (34 new), ME 62, FW 70, PL 239 (1 new), Loom 26; the command line's 34 in each of EE,
+ME, and FW. The FW and EE demos parse the same under the new rules (checked unit by unit), and every
+guide step still finds its target. The three real descriptions were checked the same way, locally:
+every sentence keeps its place and state, Edit all round-trips each with nothing to write, and none
+has a mark that doesn't parse (their writers had worked around these bugs). Their next sync changes only
+`summary.spec`: an empty Hardware and Interfaces drop out of one, and two more gists reach PL in another.
+
+Not covered: an unbalanced bracket inside a mark (`[range [0, 100) is valid]{std}`) still parses from
+the inner bracket, unflagged (the sentence keeps its state; only the mark's extent is short). The
+jump correction couldn't be watched, since smooth scrolling doesn't run in a hidden preview pane.
+
+### Decisions on first use (Chris, 2026-11-09)
+
+Asked with the options below (the recommendation first in each). Chris chose: **A** the `Check:` prefix
+(no data move); **B** Unlinked; **C** requirements verified on the ring; **D** keep joining lines, with a
+`Check:` line starting its own paragraph; **E** both, highlight and bundled lines; **F** always a block;
+**G** all four; **empty groups** list the sections under them.
+
+- **A. Review notes.** Doubts were written as untraced sentences starting `Check:`, so they share the
+  Untraced count, filter, and the diagram's gap hatch with sentences nobody has linked yet. (1) A
+  sentence or list item starting `Check:` is a review note: counted and filtered on its own, its own
+  margin mark (a line style, not a hue), not a diagram gap, and *Resolve* in its panel removes it, with
+  Undo. The three real descriptions need no change. (2) A mark, `[…]{check}`, with the same behavior;
+  the real descriptions' notes move to it later (a data change, with Chris's OK). (3) Both.
+- **B. Wording.** Scribe's "untraced" (a sentence with no requirement) sits beside the Requirements
+  tab's "Not traced" (a requirement with no check). (1) Scribe says **Unlinked**, the opposite of
+  Linked; data keys stay. (2) The Requirements tab says "No checks" instead. (3) Keep both.
+- **C. The Overview ring** reads "100% reviewed, 0 to review" for a review with only Requirements and
+  Scribe, every requirement unverified. (1) With no checks, the ring shows requirements verified ("0 of
+  5 verified"); PL's roll-up keeps 100% (Chris, 2026-11-09). (2) Keep 100% and say "No checks to
+  review". (3) Keep.
+- **D. Single newlines** join lines into one paragraph. (1) Keep (hard-wrapped text reads right); the
+  writing guide says so, and a `Check:` line (A) starts its own paragraph. (2) Keep line breaks as typed.
+- **E. Fan-outs** (one block using 7–12 others). (1) Hovering or selecting a block brings its lines
+  forward and fades the rest. (2) Bundle lines into one trunk that splits near the targets. (3) Both.
+- **F. Interfaces** are a pill on the line when two blocks use them, but a block in the Interfaces row
+  when one does. (1) Always a block in the Interfaces row, with lines to its users. (2) Always a pill,
+  with a stub line for one user. (3) Keep, with pills that wrap instead of cutting the name.
+- **G. Smaller wishes**, any of: ranges `{REQ-044..REQ-063}`, expanded on save; `\|` in a table cell;
+  links in table rows (an ICD row tracing a requirement); Uses names with brackets or commas (in FW,
+  brackets stay part of the name; a comma needs quotes).
+- **Empty groups in PL** (raised by the summary fix): a heading with only headings under it ("##
+  Interfaces") has no gist, so PL doesn't show it. (1) Its gist lists the sections under it ("Status
+  frame, Debug port"). (2) Leave it out; write a `>` line to show it. (3) Keep the title with no gist.
 
 ## Signoff EE
 
