@@ -52,5 +52,5 @@ commit messages naming clients.
 
 1. Run `python tools/sync_engine.py --check`, then `python tools/build.py`.
 2. Open `tests/test.html` over http. It should show PASS (70 tests as of 2026-11-08).
-   After an engine sync that touched the command line, also run `node tools/signoff_test.js` (34 tests).
+   After an engine sync that touched the command line, also run `node tools/signoff_test.js` (36 tests).
 3. Grep the diff for client names, using the pattern in `../CLAUDE.md` (*Hard rules*).
