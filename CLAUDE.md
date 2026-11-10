@@ -27,7 +27,8 @@ commit messages naming clients.
 
 - **Never edit the engine files here.** These are `assets/model.js`, `github.js`,
   `workspace.js`, `app.js`, `demo.js`, `specguide.js`, `styles.css` and `tools/build.py`, `package.py`,
-  `validate_templates.py`. Fix them in EE, then run `python tools/sync_engine.py` here.
+  `validate_templates.py`, `signoff.js` (the command line, `../ee_design_review/docs/cli.md`),
+  `signoff_test.js`. Fix them in EE, then run `python tools/sync_engine.py` here.
   `build.py` fails while the copies differ. After an engine change in EE, sync here too.
 - **What belongs to FW:**
   - `assets/config.js`: names, repos, the `review-fw-` prefix, 18 profile tags, stages, demo data
@@ -51,4 +52,5 @@ commit messages naming clients.
 
 1. Run `python tools/sync_engine.py --check`, then `python tools/build.py`.
 2. Open `tests/test.html` over http. It should show PASS (70 tests as of 2026-11-08).
+   After an engine sync that touched the command line, also run `node tools/signoff_test.js` (34 tests).
 3. Grep the diff for client names, using the pattern in `../CLAUDE.md` (*Hard rules*).
