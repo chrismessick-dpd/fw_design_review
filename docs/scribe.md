@@ -432,3 +432,28 @@ line that made it in, and drops a group heading (Drivers, Interfaces) with nothi
 - Kinds use `* kind`, so the diagram draws from the first save.
 - Tests: EE checks the pruning; FW applies the template for each of the 18 tags alone, none, and all,
   and checks every Uses name resolves.
+
+## Document tab: header, add below, drag, back and forward (Chris, 2026-11-09)
+
+All in the engine's `app.js` and `styles.css`, so EE, ME, and FW share it.
+
+- **Header.** One row, level with the title: back and forward, *Edit all*, *Add section*, and a menu
+  (☰, `spec-more`) holding the Guide, the Writing guide, *Paste text…*, and both exports. The guide's
+  Export step rings the menu.
+- **+ on a heading** (`spec-add-after`, beside the pencil) opens the editor right under that section.
+  The new section takes the level of what follows when that's a subsection (so it becomes the first
+  subsection), else the heading's own level; `specNewAt` places its order between the two.
+- **Drag a section** by its heading in the text or its name in the outline (pointer events, not HTML
+  drag and drop; mouse and pen only). It moves with its subsections through `model.specMoveBlock`. The
+  line shows the landing place: before the section under the pointer, at its level; in the gap after a
+  subsection, toward the right keeps it a subsection there. The scroller (`.main`, or the outline when it
+  scrolls) moves while the pointer is within 64 px of its visible top or bottom edge or past it, up to
+  about 40 px per frame, scaled by frame time. Esc cancels; a drop where it was writes nothing.
+- **Back and forward** (`specHists`, `specHistNote` from `touch`, `specHistStep`; Ctrl+Z, Ctrl+Shift+Z,
+  Ctrl+Y). Every Scribe edit in the open page is a step: sentence buttons, section saves, moves, adds,
+  deletes, and the diagram. Undoing writes the earlier record as a new edit stamped now, chained after
+  the current one (`hist`), so auto-sync carries on and a merge sees a plain newer edit. A step is
+  refused when its sections changed since (a sync brought someone's newer edit), so it never overwrites
+  that. The toast after a step names it ("Undone: the change to Bootloader") and the section flashes.
+  Records count as this page's edit only when stamped by this user within 10 s; anything else that
+  changed came in from a sync and is only noted. The history lives while the page is open.
