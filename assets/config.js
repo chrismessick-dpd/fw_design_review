@@ -26,7 +26,8 @@ window.SIGNOFF_CONFIG = {
     "toolRepo": "fw_design_review",
     "dataRepo": "fw_design_review_data",
     "prefix": "review-fw-",
-    "suite": ["ee_design_review", "ee_design_review_data", "me_design_review", "me_design_review_data", "signoff", "pcb_dfm", "signoff_pl", "signoff_pl_data", "signoff_tickets"]
+    "suite": ["ee_design_review", "ee_design_review_data", "me_design_review", "me_design_review_data", "signoff", "pcb_dfm", "signoff_pl", "signoff_pl_data", "signoff_tickets", "loom_data", "flasher_data"],
+    "sharedPrefixes": ["review-ee-", "review-me-", "review-fw-", "review-pl-", "review-loom-", "review-flasher-"]
   },
   "ids": { "project": "f", "comment": "fc", "custom": "fx" },
   "templateOrder": ["requirements", "hw-interface", "boot-memory", "concurrency", "power", "comms", "security", "update", "quality", "test", "release"],
