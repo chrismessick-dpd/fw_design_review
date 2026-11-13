@@ -64,7 +64,7 @@ Make the LED pulse instead of blink @req
 | State | How it looks | Where it shows |
 | --- | --- | --- |
 | **Linked** | faint solid outline; hover shows REQ chips; click opens the requirement | the requirement's *Described in* |
-| **`@req`** | dashed outline and a small flag | the **Write as requirements** inbox |
+| **`@req`** | dashed outline and a small flag | **Requirements to make**, in the Requirements inbox |
 | **Untraced** | plain text, a mark in the margin | the Untraced count and filter |
 | **Standard** | plain text in a quieter style, no mark | nowhere |
 
@@ -164,9 +164,9 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   editor shows refs and titles (`{REQ-004}`, `{#Status frame}`) and saves ids (`specToEditor`,
   `specFromEditor`). Sentences are split so a span is never cut and a span that ends a sentence ends it.
   A pointer to an interface section counts as traced. `summary.spec` carries the gists and gaps.
-- **Tab:** an outline beside the document (headings, gists, or full text), the *Write as requirements*
-  and *Not described* lists, and a Diagram view. Clicking a sentence opens a panel: link or unlink a
-  requirement, Make requirement, Change REQ-0xx (for a flagged note in a section that links one),
+- **Tab:** an outline beside the document (headings, gists, or full text), the Requirements inbox (folded by default:
+  *Requirements to make* and *Not described*), and a Diagram view. Clicking a sentence opens a panel: link or unlink a
+  requirement, Make requirement (Edit REQ-0xx instead once it links one, which opens it in the Requirements tab), Change REQ-0xx (for a flagged note in a section that links one),
   Mark standard, Flag @req, Edit section. A requirement's panel has *Described in* (or Describe in…).
 - **Editing:** a section at a time, as text in place (Ctrl+Enter saves, Esc cancels); new headings
   in the text become sections right after it, and emptying it deletes it. Add section and Paste text
@@ -218,11 +218,12 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   the other as "<title> (conflict copy)" right after it, with `conflictOf`; every merge of the same
   pair makes the same copy, once. The tab lists them under *Edited in two places* (Newer version, Edit
   copy, Delete copy). Sections from before `hist` merge newer-wins.
-- **Write as requirements** is the inbox's name (Chris, 2026-11-08; it was "To requirementify"). Each
+- **Requirements to make** is the list's name (Chris, 2026-11-13; it was "Write as requirements", and
+  before that "To requirementify"), in the folded **Requirements inbox** with *Not described*. Each
   item says where it came from under its text: "Tagged @req in the description, in 3V3 buck, by Sam
   Patel, 7 d ago", or "Tagged @req in a comment from Sam Patel on <the check>, just now".
-- **`@req` in comments:** a comment anywhere in the review flagged `@req` waits in *Write as
-  requirements* with who wrote it and what it's on. New requirement makes a draft traced to the
+- **`@req` in comments:** a comment anywhere in the review flagged `@req` waits in *Requirements to
+  make* with who wrote it and what it's on. New requirement makes a draft traced to the
   check it's on; on a requirement, Change marks it Changed. Each way, or Remove flag, the comment is
   marked handled (`reqDone`) and its words stay as written. Comment boxes hint at `@req`. The
   summary's `flagged` still counts the description's sentences only.
@@ -276,7 +277,7 @@ turned up (engine in EE, synced to ME and FW, vendored to PL, Fabcheck, and Loom
   places a block in reading order. Names were cut to 4–7 characters at 9–12 blocks in a row.
 - **Removing a link** from a diagram line or the block panel's × happens at once, with Undo in the
   message (`toast` takes an action). One writer lost a link to a single click.
-- **Jumps** (outline, Write as requirements) check where they landed once the smooth scroll ends and
+- **Jumps** (outline, Requirements to make) check where they landed once the smooth scroll ends and
   correct it (`specScrollTo`). Switching Document and Diagram closes the other view's panel: on a
   narrow screen a block's panel is a sheet over the depth buttons, which is the likeliest reason a
   depth click seemed ignored (not reproduced).
