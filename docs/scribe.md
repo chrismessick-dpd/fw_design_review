@@ -216,8 +216,19 @@ description is kept but hidden, and left out of `summary.spec`. Served for revie
   `specStamp`, `SPEC_HIST`).
   When two copies were edited from the same version, the merge (`mergeSpec`) keeps the newer and adds
   the other as "<title> (conflict copy)" right after it, with `conflictOf`; every merge of the same
-  pair makes the same copy, once. The tab lists them under *Edited in two places* (Newer version, Edit
-  copy, Delete copy). Sections from before `hist` merge newer-wins.
+  pair makes the same copy, once. The tab lists them under *Edited in two places* (Resolve…, Newer
+  version, Edit copy, and Delete copy). Sections from before `hist` merge newer-wins.
+- **Resolve** (Chris, 2026-11-13; designed in `../signoff/lab/history.html`):
+  - The sheet lists what the copy has that the section lacks (`model.specResolvePlan`). It works
+    piece by piece: a sentence of a prose line, or a whole gist, list, table, heading, or `Parts:`-style
+    line.
+  - A piece sharing most of its words with a piece of the same sort is *Changes a sentence* (or *a
+    line*) and is unticked. Anything else is new: it's ticked, and goes after the piece it followed in
+    the copy.
+  - *Add checked to section* writes the picks in (`model.specResolveApply`; untouched lines keep their
+    bytes). *Use the copy instead* takes the copy's text. *Delete copy* keeps nothing.
+  - Each choice stamps the section's edit and the copy's tombstone together, so Back undoes it in one
+    step. A title, kind, or level that differs is named, never taken.
 - **Requirements to make** is the list's name (Chris, 2026-11-13; it was "Write as requirements", and
   before that "To requirementify"), in the folded **Requirements inbox** with *Not described*. Each
   item says where it came from under its text: "Tagged @req in the description, in 3V3 buck, by Sam
