@@ -23,6 +23,12 @@ commit messages naming clients.
   on the thermostat demo (`config.spec.guide`: 3), opened from the tab's Guide button. Update a step
   when the feature it describes changes (see the design doc, *The guide*).
 
+- **Releases (2026-11-17, Chris; `docs/releases.md`):** the Releases tab (`config.releases`, engine code in EE)
+  keeps builds of the target's firmware (.elf, .hex, or .bin) beside the review, for Flasher. FTEs publish;
+  Draft, Released, and Withdrawn; FW sharing decides who sees them. The target names its board once in the
+  details window (`meta.load`). Demo: three releases on `fdemo3` (0.8.0 withdrawn, 0.9.0 released, 0.9.1
+  draft), examples without files. Flasher lists them (Open in Flasher, `?release=<review>/<release>`; Flasher's README, *Releases from Signoff FW*).
+
 ## Rules
 
 - **Never edit the engine files here.** These are `assets/model.js`, `github.js`,
@@ -51,6 +57,6 @@ commit messages naming clients.
 ## Before committing
 
 1. Run `python tools/sync_engine.py --check`, then `python tools/build.py`.
-2. Open `tests/test.html` over http. It should show PASS (70 tests as of 2026-11-08).
+2. Open `tests/test.html` over http. It should show PASS (76 tests as of 2026-11-17).
    After an engine sync that touched the command line, also run `node tools/signoff_test.js` (36 tests).
 3. Grep the diff for client names, using the pattern in `../CLAUDE.md` (*Hard rules*).

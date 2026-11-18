@@ -14,6 +14,9 @@
    words.unit(s):  what one review is called on screen (target: one firmware image, such as
                    the main MCU application or a co-processor's). "Project" is the client
                    project several reviews belong to (meta.project).
+   releases:       the Releases tab (builds of the target's firmware, which Flasher lists;
+                   docs/releases.md). Only Signoff FW sets it. flasher: Flasher's page, for Open in
+                   Flasher (?release=<review id>/<release id>).
    Don't name a checklist "fab": the demo builder treats that id as Fabcheck's. */
 window.SIGNOFF_CONFIG = {
   "product": "Signoff FW",
@@ -40,6 +43,7 @@ window.SIGNOFF_CONFIG = {
   "defaultStage": "Implementation",
   "legacyTabs": [],
   "pl": { "tool": "fw", "dataRepo": "signoff_pl_data" },
+  "releases": { "flasher": "../flasher/index.html" },
   "spec": {
     "label": "Scribe", "default": true, "guide": 3,
     "template": [
@@ -394,7 +398,16 @@ window.SIGNOFF_CONFIG = {
             "test",
             "release"
           ]
-        }
+        },
+        "load": { "via": "usb", "board": "tstat-main" },
+        "releases": [
+          { "version": "0.8.0", "state": "withdrawn", "file": "tstat-main-0.8.0.elf", "size": 1462316, "sha256": "0b266816660693bc0a94f75dd8305b2a871130e141675e04e832eac1e7288a7e", "at": 0.35, "released": 0.36, "updated": 0.55, "by": "Jordan Brooks",
+            "notes": "First build for EVT units: schedule, relays, and Wi-Fi provisioning.", "withdrawnWhy": "The display flickers after an OTA reboot; use 0.9.0." },
+          { "version": "0.9.0", "state": "released", "file": "tstat-main-0.9.0.elf", "size": 1478504, "sha256": "2da56c96d6eda6874da072cd5a4ae496ab4374d7e894752e2d202476056629d1", "at": 0.7, "released": 0.72, "by": "Jordan Brooks",
+            "notes": "Fixes the flicker after an OTA reboot. Relays now off within 10 ms of a watchdog reset (REQ-003).", "source": { "repo": "acme-climate/tstat-firmware", "sha": "4f1c2a9e7b", "dirty": false } },
+          { "version": "0.9.1", "state": "draft", "file": "tstat-main-0.9.1.hex", "size": 4158210, "sha256": "13ba673b4d167b1221934c8ad11344a4e864158d605d313e9159d8eea9c516af", "at": 0.95, "by": "Ari Chen",
+            "notes": "Touch controller reset after ESD (REQ-002). For the bench before release." }
+        ]
       }
     ]
   }

@@ -343,6 +343,14 @@
     eq(reqs.map(function (q) { return q.links.length; }), (DD.projects[i].requirements || []).map(function (r) { return r.links.length; }), 'demo project ' + (i + 1) + ' keeps every requirement link');
   });
   eq(demo[0].id, 'fdemo3', 'the firmware demo is fdemo3');
+  // Releases (config.releases; docs/releases.md): the Main PCBA's three builds, one in each state.
+  var drel = Signoff.model.liveReleases(demo[0]);
+  eq(drel.map(function (r) { return r.version + ' ' + r.state; }), ['0.8.0 withdrawn', '0.9.0 released', '0.9.1 draft'], 'the demo has a withdrawn, a released, and a draft release, oldest first');
+  ok(drel.every(function (r) { return r.load.via === 'usb' && r.load.board === 'tstat-main' && r.file.sha256 && r.createdAt <= new Date().toISOString() && r.updatedAt <= new Date().toISOString(); }), 'demo releases load over USB on tstat-main, dated in the past');
+  eq(Signoff.model.cleanLoad(demo[0].meta.load, ''), { via: 'usb', board: 'tstat-main' }, 'the demo target names its board once');
+  eq(Signoff.model.latestRelease(demo[0]).version, '0.9.0', 'the demo’s latest released build is 0.9.0');
+  eq(Signoff.model.projectSummary(demo[0], T).releases.length, 3, 'the demo’s summary lists its releases');
+  ok(new Signoff.Workspace({ owner: 'o', dataRepo: 'd' }, '').checkerDirs().indexOf('releases/') >= 0, 'sharing a target moves its releases');
   var nowIso = new Date().toISOString();
   ok(demo.every(function (d) { return M.projectSummary(d, T).at <= nowIso; }), 'demo edits are all in the past');
 
