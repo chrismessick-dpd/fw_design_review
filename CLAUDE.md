@@ -32,7 +32,7 @@ commit messages naming clients.
 ## Rules
 
 - **Never edit the engine files here.** These are `assets/model.js`, `github.js`,
-  `workspace.js`, `app.js`, `demo.js`, `specguide.js`, `styles.css` and `tools/build.py`, `package.py`,
+  `workspace.js`, `app.js`, `demo.js`, `specguide.js`, `specedit.js`, `styles.css` and `tools/build.py`, `package.py`,
   `validate_templates.py`, `signoff.js` (the command line, `../ee_design_review/docs/cli.md`),
   `signoff_test.js`. Fix them in EE, then run `python tools/sync_engine.py` here.
   `build.py` fails while the copies differ. After an engine change in EE, sync here too.

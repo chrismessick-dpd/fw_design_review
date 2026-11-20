@@ -35,7 +35,8 @@ document can grow into the IEC 62304 software architecture and design descriptio
 
 - Markdown-like text. Headings make the outline: `#` is level 1, `##` level 2, and so on down to
   drivers. The folding outline and the depth control come from them.
-- **Depth 1 / 2 / 3:** headings only; headings and gists; full text.
+- **Depth:** Gists (headings and gists) or Full text. Headings only was dropped (Chris, 2026-11-19): the
+  outline beside the text already lists them.
 - A section's **gist** is its first sentence, unless the section sets one (a `> gist:` line under the
   heading, or a field beside it; to decide when building).
 - A heading can carry an optional **kind** for the diagram: `## Control loop · task`. Kinds: product,
@@ -469,3 +470,27 @@ All in the engine's `app.js` and `styles.css`, so EE, ME, and FW share it.
   that. The toast after a step names it ("Undone: the change to Bootloader") and the section flashes.
   Records count as this page's edit only when stamped by this user within 10 s; anything else that
   changed came in from a sync and is only noted. The history lives while the page is open.
+
+## The editor: badges and a toolbar (Chris, 2026-11-19)
+
+Chris: typing the markup is too cumbersome for most people. The section editor (and Edit all) is now
+`assets/specedit.js` (engine, `window.SignoffSpecEdit`), mounted on `#spec-editor` by `specMountEditor` in `app.js`.
+
+- **The text is the model.** Every edit (typing, Enter, Backspace, paste, the toolbar) changes the text and
+  redraws the lines it touched; the element keeps a textarea's face (`value`, `selectionStart`,
+  `setSelectionRange`, `input` events), so the kind bar and Add to Uses… work unchanged. Opening and saving
+  unedited gives back the same text: checked on all 192 real EE and FW sections (2026-11-19), and in a test.
+- **Badges:** a line's leading markup (H1 to H4 and a heading's kind, • and 1.1 list markers, Gist, Check,
+  Connects, Supplies, Uses, Parts), each mark (its words and a chip: REQ-001, Standard, § Section, dashed
+  when not found), and `@req`. Badges differ by shape and label, not hue. Backspace takes one whole; a click
+  opens a menu (change the link, remove the mark and keep the words, delete, make a paragraph, heading level).
+  Code fences and table lines stay as typed. Copy puts the text with its markup on the clipboard.
+- **The bar under the text:** Bold, Italic, Strikethrough, Bullets, Numbered list, Outdent, Indent, Heading ▾,
+  Gist, Check, Link requirement… (a searchable list; it wraps the selected words), Flag @req, Standard,
+  Section link…, and Parts… (EE). Keys: Ctrl+B, Ctrl+I, Ctrl+Shift+X, Ctrl+Shift+8 and 7, Tab and Shift+Tab
+  on list lines, Enter continues a list (and ends it on an empty line), Ctrl+Z and Ctrl+Y (the editor's own).
+- **New syntax, read everywhere** (`model.specRich`, `specListNumbers`): `**bold**`, `*italic*`, `~~struck~~`
+  (a marker counts only when closed in the same sentence; `5 * 3` stays a star; `specPlain` drops them, so
+  gists, summaries, and the CLI show plain words), numbered lines `1. ` / `1) ` (numbered 1., 1.1, 1.1.1 by
+  level, whatever digits are typed), and two leading spaces a list level. No real section used any of these
+  before (scanned 2026-11-19), so no stored review reads differently. Not yet: rich text inside table cells.
